@@ -13,6 +13,9 @@ app.use(express.cookieParser('LKJHYUiop58746ASDCBM'));
 // 使用 avos-express-cookie-session 记录登录信息到 cookie
 app.use(avosExpressCookieSession({ cookie: { maxAge: 3600000 }, fetchUser: true}));
 
+var avosExpressHttpsRedirect = require('avos-express-https-redirect');
+app.use(avosExpressHttpsRedirect());
+
 
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 app.get('/hello', function(req, res) {
