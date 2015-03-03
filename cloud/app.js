@@ -12,5 +12,22 @@ app.get('/hello', function(req, res) {
   res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
 
+var fs = require('fs');
+app.post('/upload', function(req, res){
+  var iconFile = req.files.iconImage;
+  if(iconFile){
+    fs.readFile(iconFile.path, function(err, data){
+      if(err)
+        return res.send('读取文件失败');
+      var base64Data = data.toString('base64');
+      var theFile = new AV.File(iconFile.name, {base64: base64Data});
+      theFile.save().then(function(theFile){
+        res.send('上传成功！');
+      });
+    });
+  }else
+    res.send('请选择一个文件。');
+});
+
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen();
