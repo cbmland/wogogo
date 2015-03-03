@@ -4,7 +4,13 @@ var app = express();
 var avosExpressCookieSession = require('avos-express-cookie-session');
 
 // App 全局配置
-app.set('views','cloud/views');   // 设置模板目录
+
+if(__production)
+  app.set('views', 'cloud/views');
+else
+  app.set('views', 'cloud/dev_views');
+
+//app.set('views','cloud/views');   // 设置模板目录
 app.set('view engine', 'ejs');    // 设置 template 引擎
 app.use(express.bodyParser());    // 读取请求 body 的中间件
 
@@ -20,6 +26,18 @@ app.use(avosExpressHttpsRedirect());
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 app.get('/hello', function(req, res) {
   res.render('hello', { message: 'Congrats, you just set up your app!' });
+});
+
+app.get('/g', function(req, res) {
+	AV.Cloud.httpRequest({
+	  url: 'http://www.baidu.com/',
+	  success: function(httpResponse) {
+		console.log(httpResponse.text);
+	  },
+	  error: function(httpResponse) {
+		console.error('Request failed with response code ' + httpResponse.status);
+	  }
+	});
 });
 
 var fs = require('fs');
