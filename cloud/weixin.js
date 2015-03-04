@@ -42,11 +42,15 @@ var receiveMessage = function(msg, cb) {
         }
     }else if(msg.xml.MsgType == 'image')
     {
-        content = '收到您的照片，请用简短的文字描述一下优惠内容。';
+        content = '(1/3) 收到您的照片，请用简短的文字描述一下优惠内容。如（沃尔玛超市洗面奶满50减20活动，速来。）';
 
     }else if(msg.xml.MsgType == 'text')
     {
-        content = '您还可以选择当前门店地理位置，方便玩家前往。';
+        content = '(2/3) 您还可以选择当前门店地理位置，方便玩家前往。';
+
+    }else if(msg.xml.MsgType == 'location')
+    {
+        content = '(3/3) 爆料成功！你可以在我的信息里查看，审核通过后即出现在首页。';
     }
 
   var result = {
