@@ -37,6 +37,10 @@ var receiveMessage = function(msg, cb) {
             if(msg.xml.EventKey == 'KEY_I_LIKE')
             {
                 content = '谢谢点赞！'
+
+            }else if(msg.xml.EventKey == 'KEY_USER_GUID')
+            {
+                content = '爆料方式简单、迅速，全程使用微信操作。\n第一步，拍摄实物照片（可以拍摄多张照片，至少1张，最多5张。），\n第二步，发送当前门店所在的位置信息，以便准确前往。\n第三步，用简短的文字描述一下优惠内容。如（蛇口沃尔玛旁氏洗面奶满50减20活动，速来。）'
             }
 
         }
