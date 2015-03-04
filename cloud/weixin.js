@@ -42,15 +42,15 @@ var receiveMessage = function(msg, cb) {
         }
     }else if(msg.xml.MsgType == 'image')
     {
-        content = '(1/3) 收到您的照片，请用简短的文字描述一下优惠内容。如（沃尔玛超市洗面奶满50减20活动，速来。）';
+        content = '(1/3) 收到您的照片，如果有多个，请继续拍摄，最多不超过5张。发送当前门店地理位置进行下一步。';
 
     }else if(msg.xml.MsgType == 'text')
     {
-        content = '(2/3) 您还可以选择当前门店地理位置，方便玩家前往。';
+        content = '(2/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
 
     }else if(msg.xml.MsgType == 'location')
     {
-        content = '(3/3) 爆料成功！你可以在我的信息里查看，审核通过后即出现在首页。';
+        content = '(3/3) 请用简短的文字描述一下优惠内容。如（蛇口沃尔玛洗面奶满50减20活动，速来。）';
     }
 
   var result = {
