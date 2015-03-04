@@ -29,12 +29,9 @@ var receiveMessage = function(msg, cb) {
 
     console.log('weixin Event:', msg.xml.Event);
 
-   switch (msg.xml.Event)
+   if (msg.xml.Event == 'CLICK')
    {
-       case 'CLICK':
-       {
-           console.log('weixin CLICK:', msg.xml.EventKey);
-       }
+       console.log('weixin CLICK:', msg.xml.EventKey);
 
    }
   var result = {
