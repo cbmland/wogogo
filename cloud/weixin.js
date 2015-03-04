@@ -27,7 +27,7 @@ var checkSignature = function(signature, timestamp, nonce, echostr, cb) {
 // 接收普通消息
 var receiveMessage = function(msg, cb) {
 
-    console.log('weixin receiveMessage:', msg.xml);
+    console.log('weixin Event:', msg.xml.Event);
 
    switch (msg.xml.Event)
    {
@@ -37,14 +37,13 @@ var receiveMessage = function(msg, cb) {
        }
 
    }
-    return;
   var result = {
     xml: {
       ToUserName: msg.xml.FromUserName[0],
       FromUserName: '' + msg.xml.ToUserName + '',
       CreateTime: new Date().getTime(),
       MsgType: 'text',
-      Content: ''
+      Content: '谢谢点赞！'
     }
   }
   cb(null, result);
