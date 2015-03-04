@@ -37,7 +37,6 @@ var receiveMessage = function(msg, cb) {
        }
 
    }
-    return;
   var result = {
     xml: {
       ToUserName: msg.xml.FromUserName[0],
