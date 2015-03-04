@@ -26,15 +26,25 @@ var checkSignature = function(signature, timestamp, nonce, echostr, cb) {
 
 // 接收普通消息
 var receiveMessage = function(msg, cb) {
-    //console.log('weixin receiveMessage:', msg.xml.Content);
 
+    console.log('weixin receiveMessage:', msg.xml);
+
+   switch (msg.xml.Event)
+   {
+       case 'CLICK':
+       {
+           console.log('weixin CLICK:', msg.xml.EventKey);
+       }
+
+   }
+    return;
   var result = {
     xml: {
       ToUserName: msg.xml.FromUserName[0],
       FromUserName: '' + msg.xml.ToUserName + '',
       CreateTime: new Date().getTime(),
       MsgType: 'text',
-      Content: '你好，你发的内容是「' + msg.xml.Content + '」。'
+      Content: ''
     }
   }
   cb(null, result);
