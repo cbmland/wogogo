@@ -44,7 +44,7 @@ var receiveMessage = function(msg, cb) {
 
             }else if(msg.xml.EventKey == 'KEY_INPUT_TEXT')
             {
-                content = '点击左下角的键盘小图标，即可切换输入模式 :)';
+                content = '↙点击左下角的键盘小图标，即可切换输入模式 :)';
             }
 
         }
