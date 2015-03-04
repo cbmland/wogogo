@@ -27,7 +27,16 @@ var checkSignature = function(signature, timestamp, nonce, echostr, cb) {
 // 接收普通消息
 var receiveMessage = function(msg, cb) {
     //console.log('weixin receiveMessage:', msg.xml.Content);
+   switch (msg.xml.Event)
+   {
+       case 'CLICK':
+       {
+           console.log('weixin CLICK:', msg.xml.EventKey);
+       }
 
+
+   }
+    return;
   var result = {
     xml: {
       ToUserName: msg.xml.FromUserName[0],
