@@ -30,14 +30,25 @@ var receiveMessage = function(msg, cb) {
     //console.log('weixin Event:', msg.xml.Event);
 
     var content = '';
-   if (msg.xml.Event == 'CLICK')
-   {
-       if(msg.xml.EventKey == 'KEY_I_LIKE')
-       {
-           content = '谢谢点赞！'
-       }
+    if(msg.xml.MsgType == 'event')//操作事件
+    {
+        if (msg.xml.Event == 'CLICK')
+        {
+            if(msg.xml.EventKey == 'KEY_I_LIKE')
+            {
+                content = '谢谢点赞！'
+            }
 
-   }
+        }
+    }else if(msg.xml.MsgType == 'image')
+    {
+        content = '收到您的照片，请用简短的文字描述一下优惠内容。';
+
+    }else if(msg.xml.MsgType == 'text')
+    {
+        content = '您还可以选择当前门店地理位置，方便玩家前往。';
+    }
+
   var result = {
     xml: {
       ToUserName: msg.xml.FromUserName[0],
