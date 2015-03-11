@@ -3,6 +3,8 @@ var xml2js = require('xml2js');
 var weixin = require('cloud/weixin.js');
 var utils = require('express/node_modules/connect/lib/utils');
 var util = require('util');
+var _ = require('underscore');
+
 var login = require('cloud/login.js');
 
 var login = require('cloud/login.js');
@@ -11,6 +13,12 @@ var muser = require('cloud/muser.js');
 var mutil = require('cloud/mutil.js');
 var config = require('cloud/config.js');
 var admin = require('cloud/madmin.js');
+
+
+var renderError = mutil.renderError;
+var renderErrorFn = mutil.renderErrorFn;
+var renderForbidden = mlog.renderForbidden;
+var renderInfo = mutil.renderInfo;
 
 // 解析微信的 xml 数据
 var xmlBodyParser = function (req, res, next) {
@@ -79,7 +87,12 @@ app.post('/register', function (req, res) {
         mutil.renderError(res, '不能为空');
     }
 });
-
+app.get('/requestEmailVerify', function (req, res) {
+    var email = req.query.email;
+    AV.User.requestEmailVerfiy(email).then(function () {
+        mutil.renderInfo(res, '邮件已发送请查收。');
+    }, mutil.renderErrorFn(res));
+});
 
 app.get('/login', function (req, res) {
     if (login.isLogin(req)) {
@@ -110,6 +123,36 @@ app.get('/logout', function (req, res) {
 app.get('/', function (req, res) {
     res.redirect('/login');
 });
+
+//使用express路由API服务/hello的http GET请求
+app.get('/tickets', function (req, res) {
+    var token = req.token;
+    var cid = req.cid;
+
+        var query = new AV.Query('_File');
+
+        query.descending('createdAt');
+
+        query.find().then(function (tickets) {
+            tickets = tickets || [];
+            tickets = _.map(tickets, transformTicket);
+            console.log(tickets);
+            res.render('list', {
+                tickets: tickets,
+                token: token
+            });
+        }, mutil.renderErrorFn(res));
+
+});
+
+function transformTicket(t) {
+
+    return {
+        id: t.id,
+        title: t.get('url'),
+        content: t.get('content')
+    };
+}
 
 app.post('/upload', function(req, res){
     var fs = require('fs');
