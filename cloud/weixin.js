@@ -52,7 +52,7 @@ var receiveMessage = function(msg, cb) {
     {
         var fs = require('fs');
         console.log(msg.xml.FromUserName, msg.xml.PicUrl);
-        var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl);
+        var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl[0]);
         console.log('file',file);
         file.save().then(function(result){console.log('result',result)},function(error){console.log('error',error)})
 
