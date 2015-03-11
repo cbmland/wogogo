@@ -1,0 +1,20 @@
+
+<div>
+  <table class="table table-borderless table-sortable">
+    <thead>
+    <tr>
+        <th data-sort="string">图片</th>
+      <th data-sort="int" data-sort-default="desc" data-sort-onload>创建时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% tickets.forEach (function (ticket){ %>
+    <tr>
+
+        <td class="table-thumb"><%- ticket.pics %></td>
+      <td class="table-date" data-sort-value="<%= ticket.createdAt %>"><span class="bstooltip" title="<%= ticket.createdAt %>"><%= ticket.createdAt %></span></td>
+    </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div>
