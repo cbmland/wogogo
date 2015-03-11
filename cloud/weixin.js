@@ -50,6 +50,10 @@ var receiveMessage = function(msg, cb) {
         }
     }else if(msg.xml.MsgType == 'image')
     {
+
+        var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl);
+        file.save();
+
         content = '(1/3) 收到您的照片，如果有多个，请继续拍摄，最多不超过5张。发送当前门店地理位置进行下一步。';
 
     }else if(msg.xml.MsgType == 'text')

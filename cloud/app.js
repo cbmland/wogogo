@@ -53,8 +53,6 @@ app.post('/upload', function(req, res){
     var iconFile = req.files.iconImage;
     if(iconFile){
 
-        var file = AV.File.withURL('test.jpg', 'http://mmbiz.qpic.cn/mmbiz/GibvHudxmlJbCt7oq8Jmrx4vvibW3mn3LLhJK92Ooib33JmajAWFSyDNicvDqV1RCkwR1JOAAQf6tr84reCsydKAUA/0');
-        file.save();
 
         fs.readFile(iconFile.path, function(err, data){
             if(err)
