@@ -120,30 +120,31 @@ app.get('/logout', function (req, res) {
     res.redirect('/login');
 });
 
-app.get('/', function (req, res) {
-    res.redirect('/login');
-});
+app.get('/', home);
 
 //使用express路由API服务/hello的http GET请求
-app.get('/tickets', function (req, res) {
+app.get('/tickets', home);
+
+function home(req, res){
+
     var token = req.token;
     var cid = req.cid;
 
-        var query = new AV.Query('_File');
+    var query = new AV.Query('_File');
 
-        query.descending('createdAt');
+    query.descending('createdAt');
+    query.limit(5);
+    query.find().then(function (tickets) {
+        tickets = tickets || [];
+        tickets = _.map(tickets, transformTicket);
+        console.log(tickets);
+        res.render('list', {
+            tickets: tickets,
+            token: token
+        });
+    }, mutil.renderErrorFn(res));
 
-        query.find().then(function (tickets) {
-            tickets = tickets || [];
-            tickets = _.map(tickets, transformTicket);
-            console.log(tickets);
-            res.render('list', {
-                tickets: tickets,
-                token: token
-            });
-        }, mutil.renderErrorFn(res));
-
-});
+}
 
 function transformTicket(t) {
 
