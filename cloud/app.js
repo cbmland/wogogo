@@ -1,7 +1,8 @@
 var express = require('express');
 var xml2js = require('xml2js');
 var weixin = require('cloud/weixin.js');
-//var utils = require('express/node_modules/connect/lib/utils');
+var utils = require('express/node_modules/connect/lib/utils');
+var util = require('util');
 var login = require('cloud/login.js');
 
 var login = require('cloud/login.js');
