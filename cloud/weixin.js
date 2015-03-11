@@ -51,8 +51,10 @@ var receiveMessage = function(msg, cb) {
     }else if(msg.xml.MsgType == 'image')
     {
         var fs = require('fs');
+        console.log(msg.xml.FromUserName, msg.xml.PicUrl);
         var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl);
-        file.save();
+        console.log(file);
+        file.save().then(function(result){console.log(result)},function(error){console.log(error)})
 
         content = '(1/3) 收到您的照片，如果有多个，请继续拍摄，最多不超过5张。发送当前门店地理位置进行下一步。';
 
