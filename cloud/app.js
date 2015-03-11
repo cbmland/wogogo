@@ -2,6 +2,7 @@ var express = require('express');
 var xml2js = require('xml2js');
 var weixin = require('cloud/weixin.js');
 var utils = require('express/node_modules/connect/lib/utils');
+var login = require('cloud/login.js');
 
 // 解析微信的 xml 数据
 var xmlBodyParser = function (req, res, next) {
