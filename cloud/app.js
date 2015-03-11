@@ -65,7 +65,7 @@ app.post('/weixin', function(req, res) {
     }
     var builder = new xml2js.Builder();
     var xml = builder.buildObject(data);
-    console.log('res:', data)
+    //console.log('res:', data)
     res.set('Content-Type', 'text/xml');
     return res.send(xml);
   });
