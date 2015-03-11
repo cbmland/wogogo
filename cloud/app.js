@@ -93,6 +93,14 @@ app.post('/login', function (req, res) {
     });
 });
 
+app.get('/logout', function (req, res) {
+    AV.User.logOut();
+    res.redirect('/login');
+});
+
+app.get('/', function (req, res) {
+    res.redirect('/login');
+});
 
 app.post('/upload', function(req, res){
     var fs = require('fs');
