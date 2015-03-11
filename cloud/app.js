@@ -156,6 +156,19 @@ function transformTicket(t) {
     };
 }
 
+app.get('/profile', function(req, res){
+
+    var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfe82f80f1fd2b2ff&redirect_uri=https%3a%2f%2fwogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect';
+
+    res.redirect(url);
+    
+    /*
+    res.render('profile', {
+        tickets: 0,
+        token: 0
+    });*/
+});
+
 app.post('/upload', function(req, res){
     var fs = require('fs');
     var iconFile = req.files.iconImage;
