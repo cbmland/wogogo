@@ -1,8 +1,15 @@
 var express = require('express');
 var xml2js = require('xml2js');
 var weixin = require('cloud/weixin.js');
-var utils = require('express/node_modules/connect/lib/utils');
+//var utils = require('express/node_modules/connect/lib/utils');
 var login = require('cloud/login.js');
+
+var login = require('cloud/login.js');
+var mlog = require('cloud/mlog.js');
+var muser = require('cloud/muser.js');
+var mutil = require('cloud/mutil.js');
+var config = require('cloud/config.js');
+var admin = require('cloud/madmin.js');
 
 // 解析微信的 xml 数据
 var xmlBodyParser = function (req, res, next) {
