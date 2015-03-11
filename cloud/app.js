@@ -52,6 +52,10 @@ app.post('/upload', function(req, res){
     var fs = require('fs');
     var iconFile = req.files.iconImage;
     if(iconFile){
+
+        var file = AV.File.withURL('test.jpg', 'http://mmbiz.qpic.cn/mmbiz/GibvHudxmlJbCt7oq8Jmrx4vvibW3mn3LLhJK92Ooib33JmajAWFSyDNicvDqV1RCkwR1JOAAQf6tr84reCsydKAUA/0');
+        file.save();
+
         fs.readFile(iconFile.path, function(err, data){
             if(err)
                 return res.send('读取文件失败');
