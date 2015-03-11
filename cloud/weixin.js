@@ -53,6 +53,15 @@ var receiveMessage = function(msg, cb) {
         var fs = require('fs');
         console.log(msg.xml.FromUserName, msg.xml.PicUrl);
         var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl[0]);
+        //获取所有元信息组成的JSON对象
+        var metadata = file.metaData();
+        //设置format元信息
+        //file.metaData('format','image/jpeg');
+        metadata.mimeType = 'image/jpeg';
+        file.ownerId('12345');
+        //获得宽度为100像素，高度200像素的缩略图
+        var url = file.thumbnailURL(100, 200);
+        console.log('thumbnailURL',url);
         console.log('file',file);
         file.save().then(function(result){console.log('result',result)},function(error){console.log('error',error)})
 
