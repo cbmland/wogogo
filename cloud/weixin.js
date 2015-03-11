@@ -50,7 +50,7 @@ var receiveMessage = function(msg, cb) {
         }
     }else if(msg.xml.MsgType == 'image')
     {
-
+        var fs = require('fs');
         var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl);
         file.save();
 
