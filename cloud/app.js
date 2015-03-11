@@ -42,9 +42,55 @@ app.set('view engine', 'ejs');    // 设置 template 引擎
 app.use(express.bodyParser());    // 读取请求 body 的中间件
 app.use(xmlBodyParser);
 
-// 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
-app.get('/hello', function(req, res) {
-  res.render('hello', { message: 'Congrats, you just set up your app!' });
+
+
+app.get('/register', function (req, res) {
+    if (login.isLogin(req)) {
+        res.redirect('/tickets');
+    } else {
+        res.render('register.ejs');
+    }
+});
+
+app.post('/register', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    var email = req.body.email;
+    if (username && password && email) {
+        var user = new AV.User();
+        user.set('username', username);
+        user.set('password', password);
+        user.set('email', email);
+        user.signUp(null).then(function (user) {
+            login.renderEmailVerify(res, email);
+        }, function (error) {
+            renderInfo(res, util.inspect(error));
+        });
+    } else {
+        mutil.renderError(res, '不能为空');
+    }
+});
+
+
+app.get('/login', function (req, res) {
+    if (login.isLogin(req)) {
+        res.redirect('/tickets');
+    } else {
+        res.render('login.ejs');
+    }
+});
+
+app.post('/login', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    AV.User.logIn(username, password, {
+        success: function (user) {
+            res.redirect('/tickets');
+        },
+        error: function (user, error) {
+            mutil.renderError(res, error.message);
+        }
+    });
 });
 
 
@@ -52,7 +98,6 @@ app.post('/upload', function(req, res){
     var fs = require('fs');
     var iconFile = req.files.iconImage;
     if(iconFile){
-
 
         fs.readFile(iconFile.path, function(err, data){
             if(err)
