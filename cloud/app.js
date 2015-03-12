@@ -158,19 +158,28 @@ function transformTicket(t) {
 
 app.get('/profile', function(req, res){
 
-    var state = "wogogo";
-    var appid = 'wx05b9d43b6600f4c9';//app
-    //var appid = 'wxfe82f80f1fd2b2ff';//mp
-    var scope = 'snsapi_userinfo';//app
-    //var scope = 'snsapi_base';//mp
-    var redirect_uri = decodeURI('http://dev.wogogo.avosapps.com/wxlogin');
+    var wxIsLogin = false;
 
-    var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope="+scope+"&state="+state+"&fromcallback=true#wechat_redirect";
+    if(wxIsLogin)
+    {
 
-    //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=https%3a%2f%2fwogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-    //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=http%3a%2f%2fdev.wogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-    console.log('/profile');
-    res.redirect(url);
+
+    }else
+    {
+        var state = "wogogo";
+
+        //var appid = 'wxfe82f80f1fd2b2ff';//mp
+        var scope = 'snsapi_userinfo';//app
+        //var scope = 'snsapi_base';//mp
+        var redirect_uri = decodeURI('http://dev.wogogo.avosapps.com/wxlogin');
+
+        var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope="+scope+"&state="+state+"&fromcallback=true#wechat_redirect";
+
+        //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=https%3a%2f%2fwogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+        //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=http%3a%2f%2fdev.wogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+        console.log('/profile');
+        res.redirect(url);
+    }
 
     /*
     res.render('profile', {
@@ -178,15 +187,32 @@ app.get('/profile', function(req, res){
         token: 0
     });*/
 });
+var appid = 'wx05b9d43b6600f4c9';//app
+var secret = 'e701033c15296b3571d1472a847b1aea';
 
 app.get('/wxlogin', function(req, res){
 
+
     console.log('/wxlogin',req.query);
 
-     res.render('profile', {
-     info: req.query.code
+    var code = req.query.code;
+    var access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appid+"&secret="+secret+"&code="+code+"&grant_type=authorization_code";
 
-     });
+    AV.Cloud.httpRequest({
+        url: access_token_url,
+        success: function(httpResponse) {
+            console.log(httpResponse.text);
+            res.render('profile', {
+                info: httpResponse.text
+
+            });
+        },
+        error: function(httpResponse) {
+            console.error('Request failed with response code ' + httpResponse.status);
+        }
+    });
+
+
 });
 
 app.post('/upload', function(req, res){
