@@ -158,7 +158,14 @@ function transformTicket(t) {
 
 app.get('/profile', function(req, res){
 
-    var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=https%3a%2f%2fdev.wogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect';
+    var state = "wogogo";
+    var appid = 'wx05b9d43b6600f4c9';
+    var redirect_uri = decodeURI('http://dev.wogogo.avosapps.com/wxlogin');
+
+    var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope=snsapi_userinfo&state="+state+"&fromcallback=true#wechat_redirect";
+    
+    //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=https%3a%2f%2fwogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+    //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=http%3a%2f%2fdev.wogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
     console.log('/profile');
     res.redirect(url);
 
