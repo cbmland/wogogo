@@ -159,11 +159,14 @@ function transformTicket(t) {
 app.get('/profile', function(req, res){
 
     var state = "wogogo";
-    var appid = 'wx05b9d43b6600f4c9';
+    var appid = 'wx05b9d43b6600f4c9';//app
+    //var appid = 'wxfe82f80f1fd2b2ff';//mp
+    var scope = 'snsapi_userinfo';//app
+    //var scope = 'snsapi_base';//mp
     var redirect_uri = decodeURI('http://dev.wogogo.avosapps.com/wxlogin');
 
-    var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope=snsapi_userinfo&state="+state+"&fromcallback=true#wechat_redirect";
-    
+    var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope="+scope+"&state="+state+"&fromcallback=true#wechat_redirect";
+
     //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=https%3a%2f%2fwogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
     //var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx05b9d43b6600f4c9&redirect_uri=http%3a%2f%2fdev.wogogo.avosapps.com%2fwxlogin&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
     console.log('/profile');
@@ -178,10 +181,11 @@ app.get('/profile', function(req, res){
 
 app.get('/wxlogin', function(req, res){
 
-    console.log('/wxlogin');
+    console.log('/wxlogin',req.query);
+
      res.render('profile', {
-     tickets: 0,
-     token: 0
+     info: req.query
+
      });
 });
 
