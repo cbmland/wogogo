@@ -184,7 +184,7 @@ app.get('/wxlogin', function(req, res){
     console.log('/wxlogin',req.query);
 
      res.render('profile', {
-     info: req.query
+     info: req.query.code
 
      });
 });
