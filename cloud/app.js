@@ -209,15 +209,15 @@ app.get('/wxlogin', function(req, res){
             query.equalTo("openid", newData.openid);
             query.find({
                 success: function(results) {
-                    alert("Successfully retrieved " + results.length + " scores.");
+                    console.log("Successfully retrieved " + results.length + " scores.");
                     // Do something with the returned AV.Object values
                     for (var i = 0; i < results.length; i++) {
                         var object = results[i];
-                        alert(object.id + ' - ' + object.get('access_token'));
+                        console.log(object.id + ' - ' + object.get('access_token'));
                     }
                 },
                 error: function(error) {
-                    alert("Error: " + error.code + " " + error.message);
+                    console.log("Error: " + error.code + " " + error.message);
                 }
             });
 
