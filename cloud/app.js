@@ -248,67 +248,13 @@ app.get('/wxlogin', function(req, res){
                 }
             });
 
-            //查询用户信息
-            var UserInfo = AV.Object.extend("UserInfoWX");
+            getUserInfoWX(openid,console.log);
 
-            var query = new AV.Query(UserInfo);
+            res.render('profile', {
 
-            query.equalTo("openid", openid);
-            query.first({
-                success: function(object) {
+                info: httpResponse.text
 
-                    if(object)
-                    {
-                        var userInfo = object;
-
-
-                    }else
-                    {
-                        //不存在，新建用户信息
-                        AV.Cloud.httpRequest({
-                            url: userinfo_url,
-                            success: function(httpResponse) {
-
-                                var userInfo = new UserInfo();
-
-                                var userInfoData = JSON.parse(httpResponse.text);
-
-                                userInfo.save(userInfoData, {
-
-                                    success: function(gameScore) {
-                                        console.log(' The userInfo was saved successfully.');
-                                    },
-                                    error: function(gameScore, error) {
-                                        console.log('The userInfo save failed.');
-                                        // error is a AV.Error with an error code and description.
-                                    }
-                                });
-
-                            },
-                            error: function(httpResponse) {
-
-                                console.error('Request failed with response code ' + httpResponse.status);
-                            }
-                        });
-
-
-                    }
-
-                    console.log('userinfo',userInfo);
-
-                    res.render('profile', {
-
-                        info: httpResponse.text
-
-                    });
-
-                },
-                error: function(error) {
-                    console.log("Error: " + error.code + " " + error.message);
-                }
             });
-
-
             console.log('access_token',JSON.parse(httpResponse.text));
 
         },
@@ -319,6 +265,69 @@ app.get('/wxlogin', function(req, res){
 
 
 });
+
+function getUserInfoWX(openid,callback)
+{
+    //查询用户信息
+    var UserInfo = AV.Object.extend("UserInfoWX");
+
+    var query = new AV.Query(UserInfo);
+
+    query.equalTo("openid", openid);
+    query.first({
+        success: function(object) {
+
+            if(object)
+            {
+                var userInfo = object;
+
+                console.log('find userinfo',userInfo);
+
+                callback && callback(userInfo);
+
+            }else
+            {
+                //不存在，新建用户信息
+                AV.Cloud.httpRequest({
+                    url: userinfo_url,
+                    success: function(httpResponse) {
+
+                        var userInfo = new UserInfo();
+
+                        var userInfoData = JSON.parse(httpResponse.text);
+
+                        userInfo.save(userInfoData, {
+
+                            success: function(gameScore) {
+                                console.log(' The userInfo was saved successfully.');
+                            },
+                            error: function(gameScore, error) {
+                                console.log('The userInfo save failed.');
+                                // error is a AV.Error with an error code and description.
+                            }
+                        });
+
+                        callback && callback(userInfo);
+
+                    },
+                    error: function(httpResponse) {
+
+                        console.error('Request failed with response code ' + httpResponse.status);
+
+                        callback && callback(undefined);
+                    }
+                });
+
+
+            }
+
+        },
+        error: function(error) {
+            console.log("Error: " + error.code + " " + error.message);
+        }
+    });
+
+}
 
 app.post('/upload', function(req, res){
     var fs = require('fs');
