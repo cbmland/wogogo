@@ -201,6 +201,22 @@ app.get('/wxlogin', function(req, res){
     AV.Cloud.httpRequest({
         url: access_token_url,
         success: function(httpResponse) {
+
+            var AccessToken = AV.Object.extend("AccessToken");
+
+            // 创建该类的一个实例
+            var accessToken = new AccessToken();
+
+            accessToken.save(JSON.parse(httpResponse.text), {
+                success: function(gameScore) {
+                    console.log(' The accessToken was saved successfully.');
+                },
+                error: function(gameScore, error) {
+                    console.log('The accessToken save failed.');
+                    // error is a AV.Error with an error code and description.
+                }
+            });
+
             console.log(JSON.parse(httpResponse.text));
             res.render('profile', {
                 info: httpResponse.text
