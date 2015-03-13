@@ -170,7 +170,7 @@ app.get('/profile', function(req, res){
 
         //var appid = 'wxfe82f80f1fd2b2ff';//mp
         var scope = 'snsapi_userinfo';//app
-        //var scope = 'snsapi_base';//mp
+        var scope = 'snsapi_base';//mp
         var redirect_uri = decodeURI('http://dev.wogogo.avosapps.com/wxlogin');
 
         var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope="+scope+"&state="+state+"&fromcallback=true#wechat_redirect";
