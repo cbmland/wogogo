@@ -209,6 +209,7 @@ app.get('/wxlogin', function(req, res){
             query.equalTo("openid", newData.openid);
             query.first({
                 success: function(object) {
+                    console.log('first',object);
                     console.log("Successfully retrieved " + object.length + " scores.");
                     // Do something with the returned AV.Object values
 
