@@ -251,10 +251,15 @@ app.get('/wxlogin', function(req, res){
             AV.Cloud.httpRequest({
                 url: userinfo_url,
                 success: function(httpResponse) {
+<<<<<<< HEAD
 
                     var UserInfo = AV.Object.extend("UserInfo");
 
                     var userInfo = JSON.parse(httpResponse.text);
+=======
+
+                    var userInfo = JSON.parse(httpResponse.text)
+>>>>>>> bbe8a38727392cd25abce08fd5741937b0f9553d
                     console.log('userinfo',userInfo);
 
                     res.render('profile', {
