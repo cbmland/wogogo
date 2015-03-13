@@ -204,6 +204,24 @@ app.get('/wxlogin', function(req, res){
 
             var AccessToken = AV.Object.extend("AccessToken");
 
+            var newData = JSON.parse(httpResponse.text);
+            var query = new AV.Query(AccessToken);
+            query.equalTo("openid", newData.openid);
+            query.find({
+                success: function(results) {
+                    alert("Successfully retrieved " + results.length + " scores.");
+                    // Do something with the returned AV.Object values
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        alert(object.id + ' - ' + object.get('access_token'));
+                    }
+                },
+                error: function(error) {
+                    alert("Error: " + error.code + " " + error.message);
+                }
+            });
+
+
             // 创建该类的一个实例
             var accessToken = new AccessToken();
 
