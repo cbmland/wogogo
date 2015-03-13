@@ -201,7 +201,7 @@ app.get('/wxlogin', function(req, res){
     AV.Cloud.httpRequest({
         url: access_token_url,
         success: function(httpResponse) {
-            console.log(httpResponse.text);
+            console.log(httpResponse.text.parseJSON());
             res.render('profile', {
                 info: httpResponse.text
 
