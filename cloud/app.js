@@ -169,7 +169,7 @@ app.get('/profile', function(req, res){
         var state = "wogogo";
 
         //var appid = 'wxfe82f80f1fd2b2ff';//mp
-        var scope = 'snsapi_userinfo';//app
+        //var scope = 'snsapi_userinfo';//app
         var scope = 'snsapi_base';//mp
         var redirect_uri = decodeURI('http://dev.wogogo.avosapps.com/wxlogin');
 
