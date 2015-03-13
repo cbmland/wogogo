@@ -190,8 +190,11 @@ app.get('/profile', function(req, res){
 var appid = 'wx05b9d43b6600f4c9';//app
 var secret = 'e701033c15296b3571d1472a847b1aea';
 
+var app_res;
+
 app.get('/wxlogin', function(req, res){
 
+    app_res = res;
 
     console.log('/wxlogin',req.query);
 
@@ -248,13 +251,9 @@ app.get('/wxlogin', function(req, res){
                 }
             });
 
-            getUserInfoWX(access_token,openid,console.log);
+            getUserInfoWX(access_token,openid,showUserInfoWX);
 
-            res.render('profile', {
 
-                info: httpResponse.text
-
-            });
             console.log('access_token',JSON.parse(httpResponse.text));
 
         },
@@ -265,7 +264,17 @@ app.get('/wxlogin', function(req, res){
 
 
 });
+function showUserInfoWX(userInfo)
+{
+    var res = app_res;
 
+    res.render('profile', {
+
+        username: userInfo.get('username'),
+        headimgurl: userInfo.get('headimgurl')
+
+    });
+}
 function getUserInfoWX(access_token,openid,callback)
 {
     //查询用户信息
