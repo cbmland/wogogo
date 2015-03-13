@@ -270,7 +270,7 @@ function showUserInfoWX(userInfo)
 
     res.render('profile', {
 
-        username: userInfo.get('username'),
+        nickname: userInfo.get('nickname'),
         headimgurl: userInfo.get('headimgurl')
 
     });
