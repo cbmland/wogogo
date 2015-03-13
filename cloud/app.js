@@ -207,18 +207,17 @@ app.get('/wxlogin', function(req, res){
             var newData = JSON.parse(httpResponse.text);
             var query = new AV.Query(AccessToken);
             query.equalTo("openid", newData.openid);
-            query.find({
-                success: function(results) {
-                    console.log("Successfully retrieved " + results.length + " scores.");
+            query.first({
+                success: function(object) {
+                    console.log("Successfully retrieved " + object.length + " scores.");
                     // Do something with the returned AV.Object values
-                    for (var i = 0; i < results.length; i++) {
-                        var object = results[i];
+
                         console.log(object.id + ' - ' + object.get('access_token'));
 
-                        results[i].set('access_token',newData.access_token);
-                        results[i].save();
+                        object.set('access_token',newData.access_token);
+                        object.save();
 
-                    }
+
                 },
                 error: function(error) {
                     console.log("Error: " + error.code + " " + error.message);
