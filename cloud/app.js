@@ -248,41 +248,66 @@ app.get('/wxlogin', function(req, res){
                 }
             });
 
-            AV.Cloud.httpRequest({
-                url: userinfo_url,
-                success: function(httpResponse) {
+            //查询用户信息
+            var UserInfo = AV.Object.extend("UserInfoWX");
 
-                    var UserInfo = AV.Object.extend("UserInfoWX");
+            var query = new AV.Query(UserInfo);
 
-                    var userInfo = new UserInfo();
+            query.equalTo("openid", openid);
+            query.first({
+                success: function(object) {
 
-                    var userInfoData = JSON.parse(httpResponse.text);
-                    
-                    userInfo.save(userInfoData, {
+                    if(object)
+                    {
+                        var userInfo = object;
 
-                        success: function(gameScore) {
-                            console.log(' The userInfo was saved successfully.');
-                        },
-                        error: function(gameScore, error) {
-                            console.log('The userInfo save failed.');
-                            // error is a AV.Error with an error code and description.
-                        }
-                    });
-                    
+
+                    }else
+                    {
+                        //不存在，新建用户信息
+                        AV.Cloud.httpRequest({
+                            url: userinfo_url,
+                            success: function(httpResponse) {
+
+                                var userInfo = new UserInfo();
+
+                                var userInfoData = JSON.parse(httpResponse.text);
+
+                                userInfo.save(userInfoData, {
+
+                                    success: function(gameScore) {
+                                        console.log(' The userInfo was saved successfully.');
+                                    },
+                                    error: function(gameScore, error) {
+                                        console.log('The userInfo save failed.');
+                                        // error is a AV.Error with an error code and description.
+                                    }
+                                });
+
+                            },
+                            error: function(httpResponse) {
+
+                                console.error('Request failed with response code ' + httpResponse.status);
+                            }
+                        });
+
+
+                    }
+
                     console.log('userinfo',userInfo);
 
                     res.render('profile', {
-                        
+
                         info: httpResponse.text
 
                     });
 
                 },
-                error: function(httpResponse) {
-                    
-                    console.error('Request failed with response code ' + httpResponse.status);
+                error: function(error) {
+                    console.log("Error: " + error.code + " " + error.message);
                 }
             });
+
 
             console.log('access_token',JSON.parse(httpResponse.text));
 
