@@ -202,21 +202,25 @@ app.get('/wxlogin', function(req, res){
         url: access_token_url,
         success: function(httpResponse) {
 
+            var newData = JSON.parse(httpResponse.text);
+            var access_token = newData.access_token;
+            var openid = newData.openid;
+            var userinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
+
             var AccessToken = AV.Object.extend("AccessToken");
 
-            var newData = JSON.parse(httpResponse.text);
             var query = new AV.Query(AccessToken);
 
-            query.equalTo("openid", newData.openid);
+            query.equalTo("openid", openid);
             query.first({
                 success: function(object) {
 
                     if(object)
                     {
 
-                        console.log('update '+object.id + ' - ' + object.get('access_token')+' to '+newData.access_token);
+                        console.log('update '+object.id + ' - ' + object.get('access_token')+' to '+access_token);
 
-                        object.set('access_token',newData.access_token);
+                        object.set('access_token',access_token);
                         object.set('refresh_token',newData.refresh_token);
                         object.save();
 
@@ -226,7 +230,7 @@ app.get('/wxlogin', function(req, res){
                         // 创建该类的一个实例
                         var accessToken = new AccessToken();
 
-                        accessToken.save(JSON.parse(httpResponse.text), {
+                        accessToken.save(newData, {
 
                             success: function(gameScore) {
                                 console.log(' The accessToken was saved successfully.');
@@ -245,14 +249,26 @@ app.get('/wxlogin', function(req, res){
                 }
             });
 
+            AV.Cloud.httpRequest({
+                url: userinfo_url,
+                success: function(httpResponse) {
 
+                    var userInfo = JSON.parse(httpResponse.text)
+                    console.log('userinfo',userInfo);
 
+                    res.render('profile', {
+                        info: httpResponse.text
 
-            console.log(JSON.parse(httpResponse.text));
-            res.render('profile', {
-                info: httpResponse.text
+                    });
 
+                },
+                error: function(httpResponse) {
+                    console.error('Request failed with response code ' + httpResponse.status);
+                }
             });
+
+            console.log('access_token',JSON.parse(httpResponse.text));
+
         },
         error: function(httpResponse) {
             console.error('Request failed with response code ' + httpResponse.status);
