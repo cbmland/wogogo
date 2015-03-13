@@ -214,6 +214,10 @@ app.get('/wxlogin', function(req, res){
                     for (var i = 0; i < results.length; i++) {
                         var object = results[i];
                         console.log(object.id + ' - ' + object.get('access_token'));
+
+                        results[i].set('access_token',newData.access_token);
+                        results[i].save();
+
                     }
                 },
                 error: function(error) {
