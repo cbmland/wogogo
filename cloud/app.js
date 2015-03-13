@@ -205,7 +205,7 @@ app.get('/wxlogin', function(req, res){
             var accessTokenData = JSON.parse(httpResponse.text);
             var access_token = accessTokenData.access_token;
             var openid = accessTokenData.openid;
-            var userinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
+
 
             var AccessToken = AV.Object.extend("AccessTokenWX");
 
@@ -248,7 +248,7 @@ app.get('/wxlogin', function(req, res){
                 }
             });
 
-            getUserInfoWX(openid,console.log);
+            getUserInfoWX(access_token,openid,console.log);
 
             res.render('profile', {
 
@@ -266,7 +266,7 @@ app.get('/wxlogin', function(req, res){
 
 });
 
-function getUserInfoWX(openid,callback)
+function getUserInfoWX(access_token,openid,callback)
 {
     //查询用户信息
     var UserInfo = AV.Object.extend("UserInfoWX");
@@ -287,6 +287,7 @@ function getUserInfoWX(openid,callback)
 
             }else
             {
+                var userinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
                 //不存在，新建用户信息
                 AV.Cloud.httpRequest({
                     url: userinfo_url,
