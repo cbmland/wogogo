@@ -202,12 +202,12 @@ app.get('/wxlogin', function(req, res){
         url: access_token_url,
         success: function(httpResponse) {
 
-            var newData = JSON.parse(httpResponse.text);
-            var access_token = newData.access_token;
-            var openid = newData.openid;
+            var accessTokenData = JSON.parse(httpResponse.text);
+            var access_token = accessTokenData.access_token;
+            var openid = accessTokenData.openid;
             var userinfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token+"&openid="+openid;
 
-            var AccessToken = AV.Object.extend("AccessToken");
+            var AccessToken = AV.Object.extend("AccessTokenWX");
 
             var query = new AV.Query(AccessToken);
 
@@ -221,7 +221,7 @@ app.get('/wxlogin', function(req, res){
                         console.log('update '+object.id + ' - ' + object.get('access_token')+' to '+access_token);
 
                         object.set('access_token',access_token);
-                        object.set('refresh_token',newData.refresh_token);
+                        object.set('refresh_token',accessTokenData.refresh_token);
                         object.save();
 
 
@@ -230,7 +230,7 @@ app.get('/wxlogin', function(req, res){
                         // 创建该类的一个实例
                         var accessToken = new AccessToken();
 
-                        accessToken.save(newData, {
+                        accessToken.save(accessTokenData, {
 
                             success: function(gameScore) {
                                 console.log(' The accessToken was saved successfully.');
@@ -251,24 +251,35 @@ app.get('/wxlogin', function(req, res){
             AV.Cloud.httpRequest({
                 url: userinfo_url,
                 success: function(httpResponse) {
-<<<<<<< HEAD
 
-                    var UserInfo = AV.Object.extend("UserInfo");
+                    var UserInfo = AV.Object.extend("UserInfoWX");
 
-                    var userInfo = JSON.parse(httpResponse.text);
-=======
+                    var userInfo = new UserInfo();
 
-                    var userInfo = JSON.parse(httpResponse.text)
->>>>>>> bbe8a38727392cd25abce08fd5741937b0f9553d
+                    var userInfoData = JSON.parse(httpResponse.text);
+                    
+                    userInfo.save(userInfoData, {
+
+                        success: function(gameScore) {
+                            console.log(' The userInfo was saved successfully.');
+                        },
+                        error: function(gameScore, error) {
+                            console.log('The userInfo save failed.');
+                            // error is a AV.Error with an error code and description.
+                        }
+                    });
+                    
                     console.log('userinfo',userInfo);
 
                     res.render('profile', {
+                        
                         info: httpResponse.text
 
                     });
 
                 },
                 error: function(httpResponse) {
+                    
                     console.error('Request failed with response code ' + httpResponse.status);
                 }
             });
