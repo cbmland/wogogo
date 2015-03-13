@@ -206,17 +206,37 @@ app.get('/wxlogin', function(req, res){
 
             var newData = JSON.parse(httpResponse.text);
             var query = new AV.Query(AccessToken);
+
             query.equalTo("openid", newData.openid);
             query.first({
                 success: function(object) {
-                    console.log('first',object);
-                    console.log("Successfully retrieved " + object.length + " scores.");
-                    // Do something with the returned AV.Object values
 
-                        console.log(object.id + ' - ' + object.get('access_token'));
+                    if(object)
+                    {
+
+                        console.log('update '+object.id + ' - ' + object.get('access_token')+' to '+newData.access_token);
 
                         object.set('access_token',newData.access_token);
+                        object.set('refresh_token',newData.refresh_token);
                         object.save();
+
+
+                    }else
+                    {
+                        // 创建该类的一个实例
+                        var accessToken = new AccessToken();
+
+                        accessToken.save(JSON.parse(httpResponse.text), {
+
+                            success: function(gameScore) {
+                                console.log(' The accessToken was saved successfully.');
+                            },
+                            error: function(gameScore, error) {
+                                console.log('The accessToken save failed.');
+                                // error is a AV.Error with an error code and description.
+                            }
+                        });
+                    }
 
 
                 },
@@ -226,18 +246,7 @@ app.get('/wxlogin', function(req, res){
             });
 
 
-            // 创建该类的一个实例
-            var accessToken = new AccessToken();
 
-            accessToken.save(JSON.parse(httpResponse.text), {
-                success: function(gameScore) {
-                    console.log(' The accessToken was saved successfully.');
-                },
-                error: function(gameScore, error) {
-                    console.log('The accessToken save failed.');
-                    // error is a AV.Error with an error code and description.
-                }
-            });
 
             console.log(JSON.parse(httpResponse.text));
             res.render('profile', {
