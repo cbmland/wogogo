@@ -133,7 +133,7 @@ function home(req, res){
     var query = new AV.Query('_File');
 
     query.descending('createdAt');
-    query.limit(5);
+    query.limit(15);
     query.find().then(function (tickets) {
         tickets = tickets || [];
         tickets = _.map(tickets, transformTicket);
