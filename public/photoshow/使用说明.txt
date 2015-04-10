@@ -1,0 +1,10 @@
+Plugins文件夹、UI文件夹均为jqmobi自带，使用与jqmobi中，不用复制这两个文件夹。
+
+
+/js/af.carousel.js  这个文件是原版本
+/js/af.carousel.min.js  这个文件是压缩版本
+
+
+
+本插件由PhoneGAP100.com  phonegap中文网整理。
+
