@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+
+	<script>
+	(function() {
+		if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+			var msViewportStyle = document.createElement("style");
+			msViewportStyle.appendChild(
+				document.createTextNode("@-ms-viewport{width:auto!important}")
+			);
+			document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+		}
+	})();
+	</script>
+
+	<title>jqmobi框架</title>
+	
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes" /><!--是否显示苹果状态栏-->
+	<!--<META HTTP-EQUIV="Pragma" CONTENT="no-cache">清除缓存，效果不大，写了会导致离线功能出问题-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="build/css/icons.css" />
+	<link rel="stylesheet" type="text/css" href="build/css/af.ui.base.css" />
+	<link rel="stylesheet" type="text/css" href="style/style.css" />
+
+	<script type="text/javascript" charset="utf-8" src="build/appframework.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="build/ui/appframework.ui.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="build/af.plugins.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="script/TouchSlide.1.1.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="script/script.js"></script>
+	
+	
+</head>
+
+<body>
+	<div id="afui">
+	
+		<div id="splashscreen" class='ui-loader heavy'>
+
+		</div>
+			
+		<div id="header">
+			<a href="javascript:$.ui.toggleLeftSideMenu()" class="button" style="float:right">Toggle Nav</a>
+		</div>
+		
+		<div id="content">
+		<!-- here is where you can add your panels -->
+		
+			<div title="Scroller" class="panel" id="webslider"  selected="true">
+				<ul class="list">
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+					<li>111</li>
+				</ul>
+			</div>
+
+		</div>
+		
+	<!-- bottom navbar. Add additional tabs here -->
+		<div id="navbar">
+			<div class="horzRule"></div>
+			<a href="#main" id='navbar_home' class='icon home'>home</a>
+		</div>
+		
+	<!-- this is the default left side nav menu.  If you do not want any, do not include these -->
+		<nav>
+			<div class='title'>Home</div>
+			<ul>
+				<li >
+					<a class="icon home mini" href="#main">Selectors</a>
+				</li>
+			</ul>
+		</nav>
+		
+		<aside>
+			<div class='title'>Home</div>
+			<ul>
+				<li >
+					<a class="icon home mini" href="#main">Selectors</a>
+				</li>
+			</ul>
+		</aside>
+		
+	</div>
+</body>
+</html>
