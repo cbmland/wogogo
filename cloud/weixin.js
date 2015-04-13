@@ -145,6 +145,10 @@ var receiveMessage = function(msg, cb) {
                     object.set('postId',value.id);
                     object.save().then(
 
+                        function(value) {
+
+                        }
+
                     ).error(
 
                         function(error) {
