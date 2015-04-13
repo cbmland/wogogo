@@ -168,7 +168,7 @@ var receiveMessage = function(msg, cb) {
                     photoNum = results.length;
                     console.log('photoNum',photoNum);
                     value.set("photoNum", photoNum);
-                    value.set('photos',results[0]);
+                    value.set('photos',results);
                     value.save();
 
                     setPostId(results);
