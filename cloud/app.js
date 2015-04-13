@@ -130,37 +130,73 @@ function home(req, res){
     var token = req.token;
     var cid = req.cid;
 
-
-    var innerQuery = new AV.Query('Post');
-    innerQuery.descending('createdAt');
-    innerQuery.limit(5);
     var query = new AV.Query('Post');
-    //query.matchesQuery("post", innerQuery);
+
     query.descending('createdAt');
     query.limit(5);
     query.include("pics");
-    query.find({
-        success: function(results) {
-            console.log('------');
-            for (var i = 0; i < results.length; i++) {
-                var object = results[i];
-
-                console.log(object.get('pics'));
-            }
-        }
-    });
-
-
-    var query = new AV.Query('Post');
-
-    query.descending('createdAt');
-    query.limit(5);
+    query.include("location");
     query.find().then(function (posts) {
         posts = posts || [];
-        posts = _.map(posts, transformPosts);
+
+        //console.log('------');
+
+
+        var postsList = [];
+
+        for (var i = 0; i < posts.length; i++) {
+
+            var post = posts[i];
+
+            var itemData = {title:post.get('title'),pics:[],location:{}}
+
+            var pics = post.get('pics');
+
+            var picsData = itemData.pics;
+            var locationData = itemData.location;
+
+            //console.log(pics)
+
+            if(pics && pics.length>0)
+            {
+                for(var p=0;p<pics.length;p++)
+                {
+                   var pic = pics[p];
+
+                   var pic_url = pic.get('file')['_url'];
+
+                   picsData[p] = pic_url;
+
+                   //console.log(pic_url);
+                }
+
+            }
+
+
+            var locationRaw = post.get('location');
+
+            if(locationRaw && locationRaw.length>0)
+            {
+                locationRaw = locationRaw[0];
+
+                //console.log(locationRaw.get('loc_x'));
+
+                locationData.loc_x = locationRaw.get('loc_x');
+                locationData.loc_y = locationRaw.get('loc_y');
+                locationData.label = locationRaw.get('label');
+
+            }
+
+            postsList[i] = itemData;
+
+
+        }
+
+        console.log(postsList);
+        //posts = _.map(posts, transformPosts);
         //console.log(posts);
         res.render('list', {
-            posts: posts,
+            posts: postsList,
             token: token
         });
     }, mutil.renderErrorFn(res));
