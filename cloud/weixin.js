@@ -167,7 +167,7 @@ var receiveMessage = function(msg, cb) {
                     console.log('photoNum',photoNum);
                     value.set("photoNum", photoNum);
                     value.save();
-                    
+
                     setPostId(results);
                 },
                 function(error){
@@ -188,33 +188,12 @@ var receiveMessage = function(msg, cb) {
             );
 
 
-
-            /*
-             var query = new AV.Query('Post');
-             query.get(value.id, {
-             success: function(findPost) {
-
-                 console.log('Post.Find()',findPost);
-
-
-
-             },
-             error: function(object, error) {
-                // The object was not retrieved successfully.
-                // error is a AV.Error with an error code and description.
-             }
-             });
-
-            */
-
-            content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
-
         }, function(error) {
 
             console.log('post.save()',error);
         });
 
-
+        content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
 
 
     }else if(msg.xml.MsgType == 'location')
