@@ -4,8 +4,12 @@
     <% posts.forEach (function (post){ %>
     <div>
         <div class="title"><%= post.title %></div>
-        <img width="500" height="500" class="table-thumb" src="<%- posts.pics %>" />
-      <div class="table-date" data-sort-value="<%= posts.createdAt %>"><span class="bstooltip" title="<%= posts.createdAt %>"><%= posts.createdAt %></span></div>
+
+        <% post.pics.forEach (function (pic){ %>
+        <img width="500" height="500" class="table-thumb" src="<%- pic.url %>" />
+        <% }) %>
+
+      <div class="table-date" data-sort-value="<%= post.createdAt %>"><span class="bstooltip" title="<%= post.createdAt %>"><%= post.createdAt %></span></div>
     </div>
     <% }) %>
 

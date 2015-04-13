@@ -148,14 +148,14 @@ function home(req, res){
 
             var post = posts[i];
 
-            var itemData = {title:post.get('title'),pics:[],location:{}}
+            var itemData = {title:post.get('title'),pics:[],location:{},createdAt:post.createdAt}
 
             var pics = post.get('pics');
 
             var picsData = itemData.pics;
             var locationData = itemData.location;
 
-            //console.log(pics)
+            //console.log(post.createdAt)
 
             if(pics && pics.length>0)
             {
@@ -165,7 +165,7 @@ function home(req, res){
 
                    var pic_url = pic.get('file')['_url'];
 
-                   picsData[p] = pic_url;
+                   picsData[p] = {url:pic_url};
 
                    //console.log(pic_url);
                 }
@@ -175,10 +175,8 @@ function home(req, res){
 
             var locationRaw = post.get('location');
 
-            if(locationRaw && locationRaw.length>0)
+            if(locationRaw)
             {
-                locationRaw = locationRaw[0];
-
                 //console.log(locationRaw.get('loc_x'));
 
                 locationData.loc_x = locationRaw.get('loc_x');
@@ -189,12 +187,10 @@ function home(req, res){
 
             postsList[i] = itemData;
 
-
         }
 
         console.log(postsList);
-        //posts = _.map(posts, transformPosts);
-        //console.log(posts);
+
         res.render('list', {
             posts: postsList,
             token: token
@@ -203,34 +199,6 @@ function home(req, res){
 
 }
 
-function transformPosts(post) {
-
-    //console.log(post);
-
-    //查找图片，更新关联的postId
-    var query = new AV.Query('Photo');
-    query.equalTo("postId", post.id);
-    query.ascending('createdAt');
-    query.limit(5);
-
-    query.find().then(
-        function(results) {
-
-
-            //console.log('photoNum',results.length);
-        },
-        function(error){
-            console.log('Photo.Find()',error);
-        }
-    );
-
-    return {
-        id: post.id,
-        pics: post.get('url'),
-        createdAt: post.createdAt,
-        title: post.get('title')
-    };
-}
 
 app.get('/profile', function(req, res){
 
