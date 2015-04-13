@@ -85,7 +85,7 @@ var receiveMessage = function(msg, cb) {
 
             console.log('imgUrl request',imgUrl,response,body);
 
-            var base64Data = body.toString('base64');
+            var base64Data = response.toString('base64');
 
             var pic = new AV.File("test.png",  {base64: base64Data});
             pic.save();
