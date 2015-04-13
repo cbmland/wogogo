@@ -126,33 +126,54 @@ var receiveMessage = function(msg, cb) {
 
         post.save().then(function(value) {
 
-            console.log('post.save()',value);
-            //查找图片和位置数据，更新到postId
+            //console.log('post.save()',value);
 
+
+            function setPostId(results) {
+
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    object.set('postId',value.id);
+                    object.save().then(
+                        function(result) {
+
+                            console.log('object set postId =',value.id);
+
+                        },
+                        function(error) {
+
+                            console.log('object.save()',error);
+                        }
+                    );
+                }
+
+
+            }
+
+            //查找图片，更新关联的postId
             var query = new AV.Query('Photo');
             query.equalTo("user", msg.xml.FromUserName[0]);
             query.equalTo("postId", "");
             query.ascending('createdAt');
             query.limit(5);
-            query.find().then(
-                function (photos) {
 
-                console.log(photos);
+            query.find().then(
+
+                /*function (photos) {
+
+                //console.log(photos);
 
                 var results = photos;
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
                     object.set('postId',value.id);
                     object.save().then(
-
                         function(value) {
 
                             console.log('object set postId =',value.id);
 
                         }
-
                     ,
-
                         function(error) {
                             console.log('object.save()',error);
                         }
@@ -160,12 +181,23 @@ var receiveMessage = function(msg, cb) {
                 }
 
 
-            }, function(error){
+            }*/
+                setPostId, function(error){
                     console.log('Photo.Find()',error);
                 }
             );
 
+            //查找图片，更新关联的postId
+            var query = new AV.Query('Location');
+            query.equalTo("user", msg.xml.FromUserName[0]);
+            query.equalTo("postId", "");
+            query.ascending('createdAt');
+            query.limit(5);
 
+            query.find().then(setPostId, function(error){
+                    console.log('Photo.Find()',error);
+                }
+            );
 
         }, function(error) {
 
