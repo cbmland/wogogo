@@ -146,15 +146,17 @@ var receiveMessage = function(msg, cb) {
                     object.save().then(
 
                         function(value) {
-                             
+
+                            console.log('object set postId =',value.id);
+
                         }
 
-                    ).error(
+                    ,
 
                         function(error) {
                             console.log('object.save()',error);
                         }
-                    )
+                    );
                 }
 
 
