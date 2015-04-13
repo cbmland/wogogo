@@ -113,8 +113,8 @@ var receiveMessage = function(msg, cb) {
     {
         var post = new AV.Object("Post");
         post.set("user", msg.xml.FromUserName);
-        post.set("title", msg.xml.Location_X);
-        post.set("content", msg.xml.Location_Y);
+        post.set("title", msg.xml.Content);
+        post.set("content", msg.xml.Content);
         post.set("approved", 0);
 
         post.save();
@@ -126,10 +126,10 @@ var receiveMessage = function(msg, cb) {
 
         var location = new AV.Object("Location");
         location.set("user", msg.xml.FromUserName);
-        location.set("Location_X", msg.xml.Location_X);
-        location.set("Location_Y", msg.xml.Location_Y);
-        location.set("Label", msg.xml.Label);
-        location.set("Scale", msg.xml.Scale);
+        location.set("loc_X", msg.xml.Location_X);
+        location.set("loc_Y", msg.xml.Location_Y);
+        location.set("label", msg.xml.Label);
+        location.set("scale", msg.xml.Scale);
         location.set("postId", '');
 
 
