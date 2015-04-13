@@ -117,22 +117,23 @@ var receiveMessage = function(msg, cb) {
         post.set("content", msg.xml.Location_Y);
         post.set("approved", 0);
 
+        post.save();
 
         content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
 
     }else if(msg.xml.MsgType == 'location')
     {
 
-        var photo = new AV.Object("Location");
-        photo.set("user", msg.xml.FromUserName);
-        photo.set("Location_X", msg.xml.Location_X);
-        photo.set("Location_Y", msg.xml.Location_Y);
-        photo.set("Label", msg.xml.Label);
-        photo.set("Scale", msg.xml.Scale);
-        photo.set("postId", '');
+        var location = new AV.Object("Location");
+        location.set("user", msg.xml.FromUserName);
+        location.set("Location_X", msg.xml.Location_X);
+        location.set("Location_Y", msg.xml.Location_Y);
+        location.set("Label", msg.xml.Label);
+        location.set("Scale", msg.xml.Scale);
+        location.set("postId", '');
 
 
-        photo.save();
+        location.save();
 
         content = '(2/3) 请用简短的文字描述一下优惠内容。如（蛇口沃尔玛洗面奶满50减20活动，速来。）';
 
