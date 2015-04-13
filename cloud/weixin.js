@@ -73,9 +73,9 @@ var receiveMessage = function(msg, cb) {
 
         imgUrl = 'https://leancloud.cn/docs/images/permission.png';
 
-        var file = AV.File.withURL('wxuploadfile.jpg', imgUrl);
-        
-        file.save();
+        //var file = AV.File.withURL('wxuploadfile.jpg', imgUrl);
+
+        //file.save();
 
         var request = require('request');
         var fs = require('fs');
@@ -87,7 +87,7 @@ var receiveMessage = function(msg, cb) {
 
             //var buffer = fs.readFileSync('wxdownloadtemp'+ localIndex + '.png');
             var base64Data = response.toString('base64');
-            var avFile = new AV.File('wxdownloadtemp' + localIndex + '.png',  {base64: base64Data});
+            var avFile = new AV.File('wxdownloadtemp' + localIndex + '.png',  response);
 
             avFile.save().then(function(){
                 //promise.resolve(avFile.url());
