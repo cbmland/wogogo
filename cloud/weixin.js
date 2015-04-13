@@ -94,7 +94,7 @@ var receiveMessage = function(msg, cb) {
                 console.log('pic.save()',value);
 
                 var photo = new AV.Object("Photo");
-                photo.set("user", msg.xml.FromUserName);
+                photo.set("user", msg.xml.FromUserName[0]);
                 photo.set("file", pic);
                 photo.set("postId", '');
                 photo.save();
@@ -110,9 +110,9 @@ var receiveMessage = function(msg, cb) {
     }else if(msg.xml.MsgType == 'text')
     {
         var post = new AV.Object("Post");
-        post.set("user", msg.xml.FromUserName);
-        post.set("title", msg.xml.Content);
-        post.set("content", msg.xml.Content);
+        post.set("user", msg.xml.FromUserName[0]);
+        post.set("title", msg.xml.Content[0]);
+        post.set("content", msg.xml.Content[0]);
         post.set("approved", 0);
 
         post.save().then(function(value) {
@@ -120,7 +120,7 @@ var receiveMessage = function(msg, cb) {
             console.log('pic.save()',value);
 
         }, function(error) {
-            
+
             console.log('pic.save()',error);
         });
 
@@ -130,7 +130,7 @@ var receiveMessage = function(msg, cb) {
     {
 
         var location = new AV.Object("Location");
-        location.set("user", msg.xml.FromUserName);
+        location.set("user", msg.xml.FromUserName[0]);
         location.set("loc_X", msg.xml.Location_X);
         location.set("loc_Y", msg.xml.Location_Y);
         location.set("label", msg.xml.Label);
