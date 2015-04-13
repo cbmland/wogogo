@@ -68,6 +68,24 @@ var receiveMessage = function(msg, cb) {
 
         content = '(1/3) 收到您的照片，如果有多个，请继续拍摄，最多不超过5张。发送当前门店地理位置进行下一步。';
 
+
+        var request = require('request');
+        var fs = require('fs');
+        var imgUrl = msg.xml.PicUrl[0];
+        var r = request(imgUrl,function(error,response,body){
+
+            console.log('imgUrl request',imgUrl,response,body);
+
+            var buffer = fs.readFileSync('wxdownloadtemp'+ localIndex + '.png');
+            var avFile = new AV.File('wxdownloadtemp' + localIndex + '.png', buffer);
+
+            avFile.save().then(function(){
+                promise.resolve(avFile.url());
+            });
+
+        }).pipe(fs.createWriteStream('wxdownloadtemp'+ localIndex +'.png'));
+
+
     }else if(msg.xml.MsgType == 'text')
     {
         content = '(2/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
