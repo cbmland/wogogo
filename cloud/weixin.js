@@ -164,6 +164,10 @@ var receiveMessage = function(msg, cb) {
             query.find().then(
                 function(results) {
                     photoNum = results.length;
+                    console.log('photoNum',photoNum);
+                    value.set("photoNum", photoNum);
+                    value.save();
+                    
                     setPostId(results);
                 },
                 function(error){
@@ -183,9 +187,7 @@ var receiveMessage = function(msg, cb) {
                 }
             );
 
-            console.log('photoNum',photoNum);
-            value.set("photoNum", photoNum);
-            value.save();
+
 
             /*
              var query = new AV.Query('Post');
