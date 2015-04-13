@@ -130,6 +130,19 @@ function home(req, res){
     var token = req.token;
     var cid = req.cid;
 
+
+    var innerQuery = new AV.Query('Post');
+    innerQuery.descending('createdAt');
+    innerQuery.limit(5);
+    var query = new AV.Query('Photo');
+    query.matchesQuery("post", innerQuery);
+    query.find({
+        success: function(comments) {
+            console.log(comments);
+        }
+    });
+
+
     var query = new AV.Query('Post');
 
     query.descending('createdAt');
@@ -148,7 +161,7 @@ function home(req, res){
 
 function transformPosts(post) {
 
-    console.log(post.id);
+    //console.log(post);
 
     //查找图片，更新关联的postId
     var query = new AV.Query('Photo');
@@ -160,7 +173,7 @@ function transformPosts(post) {
         function(results) {
 
 
-            console.log('photoNum',results.length);
+            //console.log('photoNum',results.length);
         },
         function(error){
             console.log('Photo.Find()',error);

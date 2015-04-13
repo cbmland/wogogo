@@ -126,7 +126,7 @@ var receiveMessage = function(msg, cb) {
         post.set("content", msg.xml.Content[0]);
         post.set("approved", 0);
         post.set("photoNum", photoNum);
-        post.set('photos',[]);
+        //post.set('photos',[]);
 
         post.save().then(function(value) {
 
@@ -137,6 +137,7 @@ var receiveMessage = function(msg, cb) {
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
                     object.set('postId',value.id);
+                    object.set('post',post);
                     object.save().then(
                         function(result) {
 
@@ -167,7 +168,7 @@ var receiveMessage = function(msg, cb) {
                     photoNum = results.length;
                     console.log('photoNum',photoNum);
                     value.set("photoNum", photoNum);
-                    value.set('photos',results);
+                    //value.set('photos',results);
                     value.save();
 
                     setPostId(results);
