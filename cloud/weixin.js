@@ -126,7 +126,7 @@ var receiveMessage = function(msg, cb) {
 
         post.save().then(function(value) {
 
-            //console.log('post.save()',value);
+            console.log('post.save()',value);
             //查找图片和位置数据，更新到postId
 
             var query = new AV.Query('Photo');
@@ -138,6 +138,13 @@ var receiveMessage = function(msg, cb) {
                 function (photos) {
 
                 console.log(photos);
+
+                var results = photos;
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    object.set('postId',123);
+                }
+
 
             }, function(error){
                     console.log('Photo.Find()',error);
