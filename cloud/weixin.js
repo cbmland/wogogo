@@ -102,9 +102,7 @@ var receiveMessage = function(msg, cb) {
             }, function(error) {
                 // The file either could not be read, or could not be saved to AV.
             });
-
-
-
+            
 
         });
 
