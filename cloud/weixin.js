@@ -142,7 +142,15 @@ var receiveMessage = function(msg, cb) {
                 var results = photos;
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
-                    object.set('postId',123);
+                    object.set('postId',value.id);
+                    object.save().then(
+
+                    ).error(
+
+                        function(error) {
+                            console.log('object.save()',error);
+                        }
+                    )
                 }
 
 
