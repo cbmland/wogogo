@@ -90,13 +90,13 @@ var receiveMessage = function(msg, cb) {
 
             console.log('imgUrl base64',base64Data);
 
-            //var buffer = fs.readFileSync('wxdownloadtemp.png');
-            var avFile = new AV.File('wxdownloadtemp.png',  body);
+            var buffer = fs.readFileSync('wxdownloadtemp.png');
+            var avFile = new AV.File('wxdownloadtemp.png',  buffer);
 
             avFile.save().then(function(){
                 promise.resolve(avFile.url());
                 console.log('imgUrl request success!');
-            });
+            }).pipe(fs.createWriteStream('wxdownloadtemp.png'));
 
         });
 
