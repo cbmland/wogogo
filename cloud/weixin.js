@@ -111,7 +111,14 @@ var receiveMessage = function(msg, cb) {
 
     }else if(msg.xml.MsgType == 'text')
     {
-        content = '(2/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
+        var post = new AV.Object("Post");
+        post.set("user", msg.xml.FromUserName);
+        post.set("title", msg.xml.Location_X);
+        post.set("content", msg.xml.Location_Y);
+        post.set("approved", 0);
+
+
+        content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
 
     }else if(msg.xml.MsgType == 'location')
     {
@@ -127,8 +134,7 @@ var receiveMessage = function(msg, cb) {
 
         photo.save();
 
-        content = '(3/3) 请用简短的文字描述一下优惠内容。如（蛇口沃尔玛洗面奶满50减20活动，速来。）';
-
+        content = '(2/3) 请用简短的文字描述一下优惠内容。如（蛇口沃尔玛洗面奶满50减20活动，速来。）';
 
     }
 
