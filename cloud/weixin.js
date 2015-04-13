@@ -73,24 +73,26 @@ var receiveMessage = function(msg, cb) {
 
         //imgUrl = 'https://leancloud.cn/docs/images/permission.png';
 
-        //var file = AV.File.withURL('wxuploadfile.jpg', imgUrl);
-
-        //file.save();
-
         var request = require('request');
-        var fs = require('fs');
+        //var fs = require('fs');
 
 
         var r = request({url:imgUrl,method:'GET',encoding:null},function(error,response,body){
 
             console.log('imgUrl request',imgUrl,response,body);
 
-            var base64Data = body.toString('base64');
+            //var base64Data = body.toString('base64');
+            //var pic = new AV.File("test.png",  {base64: base64Data});
+            //console.log('imgUrl base64',base64Data);
 
-            var pic = new AV.File("test.png",  {base64: base64Data});
+            var pic = new AV.File("test.png",  body);
+
             pic.save();
 
-            console.log('imgUrl base64',base64Data);
+            var photo = new AV.Object("Photo");
+            photo.set("user", msg.xml.FromUserName);
+            photo.set("file", pic);
+            photo.save();
 
         });
 
