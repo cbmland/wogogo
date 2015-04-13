@@ -80,7 +80,7 @@ var receiveMessage = function(msg, cb) {
         var request = require('request');
         var fs = require('fs');
 
-        var localIndex = 0;
+
         var r = request({url:imgUrl,method:'GET',encoding:null},function(error,response,body){
 
             console.log('imgUrl request',imgUrl,response,body);
@@ -91,14 +91,6 @@ var receiveMessage = function(msg, cb) {
             pic.save();
 
             console.log('imgUrl base64',base64Data);
-            /*
-            var buffer = fs.readFileSync('wxdownloadtemp.png');
-            var avFile = new AV.File('wxdownloadtemp.png',   {base64: base64Data});
-
-            avFile.save().then(function(){
-                promise.resolve(avFile.url());
-                console.log('imgUrl request success!');
-            }).pipe(fs.createWriteStream('wxdownloadtemp.png'));*/
 
         });
 
