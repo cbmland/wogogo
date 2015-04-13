@@ -118,12 +118,14 @@ var receiveMessage = function(msg, cb) {
 
     }else if(msg.xml.MsgType == 'text')
     {
+        var photoNum = 0;
+
         var post = new AV.Object("Post");
         post.set("user", msg.xml.FromUserName[0]);
         post.set("title", msg.xml.Content[0]);
         post.set("content", msg.xml.Content[0]);
         post.set("approved", 0);
-        post.set("photoNum", 0);
+        post.set("photoNum", photoNum);
 
         post.save().then(function(value) {
 
@@ -150,7 +152,7 @@ var receiveMessage = function(msg, cb) {
 
             }
 
-            var photoNum = 0;
+
 
             //查找图片，更新关联的postId
             var query = new AV.Query('Photo');
