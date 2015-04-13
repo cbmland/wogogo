@@ -136,9 +136,15 @@ function home(req, res){
     innerQuery.limit(5);
     var query = new AV.Query('Photo');
     query.matchesQuery("post", innerQuery);
+    query.include("post");
     query.find({
-        success: function(comments) {
-            console.log(comments);
+        success: function(results) {
+            console.log('------');
+            for (var i = 0; i < results.length; i++) {
+                var object = results[i];
+
+                console.log(object.get('post'));
+            }
         }
     });
 

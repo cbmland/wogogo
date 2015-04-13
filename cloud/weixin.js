@@ -137,7 +137,7 @@ var receiveMessage = function(msg, cb) {
                 for (var i = 0; i < results.length; i++) {
                     var object = results[i];
                     object.set('postId',value.id);
-                    object.set('post',post);
+                    object.set('post',value);
                     object.save().then(
                         function(result) {
 
@@ -168,7 +168,7 @@ var receiveMessage = function(msg, cb) {
                     photoNum = results.length;
                     console.log('photoNum',photoNum);
                     value.set("photoNum", photoNum);
-                    //value.set('photos',results);
+                    value.set('photos',results[0]);
                     value.save();
 
                     setPostId(results);
