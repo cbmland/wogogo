@@ -86,8 +86,8 @@ var receiveMessage = function(msg, cb) {
             //console.log('imgUrl base64',base64Data);
 
             var pic = new AV.File("wx_photo.jpg",  body);
-            pic.set("user", msg.xml.FromUserName);
-            pic.save();
+            //pic.set("user", msg.xml.FromUserName);
+            //pic.save();
 
             pic.save().then(function(value) {
 
