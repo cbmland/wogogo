@@ -51,8 +51,8 @@ var receiveMessage = function(msg, cb) {
     }else if(msg.xml.MsgType == 'image')
     {
         var fs = require('fs');
-        console.log(msg.xml.FromUserName, msg.xml.PicUrl);
-        var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl[0]);
+        //console.log(msg.xml.FromUserName, msg.xml.PicUrl);
+        //var file = AV.File.withURL(msg.xml.FromUserName, msg.xml.PicUrl[0]);
         //获取所有元信息组成的JSON对象
         //var metadata = file.metaData();
         //设置format元信息
@@ -62,9 +62,9 @@ var receiveMessage = function(msg, cb) {
         //获得宽度为100像素，高度200像素的缩略图
         //var url = file.thumbnailURL(100, 200);
         //console.log('thumbnailURL',url);
-        file.setACL(new AV.ACL(AV.User.current()));
-        console.log('file',file);
-        file.save().then(function(result){console.log('result',result)},function(error){console.log('error',error)})
+        //file.setACL(new AV.ACL(AV.User.current()));
+        //console.log('file',file);
+        //file.save().then(function(result){console.log('result',result)},function(error){console.log('error',error)})
 
         content = '(1/3) 收到您的照片，如果有多个，请继续拍摄，最多不超过5张。发送当前门店地理位置进行下一步。';
 
@@ -85,14 +85,25 @@ var receiveMessage = function(msg, cb) {
             //var pic = new AV.File("test.png",  {base64: base64Data});
             //console.log('imgUrl base64',base64Data);
 
-            var pic = new AV.File("test.png",  body);
+            var pic = new AV.File("wx_photo.jpg",  body);
 
             pic.save();
 
-            var photo = new AV.Object("Photo");
-            photo.set("user", msg.xml.FromUserName);
-            photo.set("file", pic);
-            photo.save();
+            pic.save().then(function(value) {
+
+                console.log('pic.save()',value);
+
+                var photo = new AV.Object("Photo");
+                photo.set("user", msg.xml.FromUserName);
+                photo.set("file", pic);
+                photo.save();
+
+            }, function(error) {
+                // The file either could not be read, or could not be saved to AV.
+            });
+
+
+
 
         });
 
