@@ -193,8 +193,8 @@ var receiveMessage = function(msg, cb) {
 
             console.log('post.save()',error);
         });
-
-        /*   
+         
+        /*
         var query = new AV.Query(GameScore);
         query.get("520ca0bbe4b07e8e0e847e31", {
             success: function(gameScore) {
