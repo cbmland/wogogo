@@ -127,6 +127,24 @@ var receiveMessage = function(msg, cb) {
         post.save().then(function(value) {
 
             //console.log('post.save()',value);
+            //查找图片和位置数据，更新到postId
+
+            var query = new AV.Query('Photo');
+            query.equalTo("user", msg.xml.FromUserName[0]);
+            query.equalTo("postId", "");
+            query.ascending('createdAt');
+            query.limit(5);
+            query.find().then(
+                function (photos) {
+
+                console.log(photos);
+
+            }, function(error){
+                    console.log('Photo.Find()',error);
+                }
+            );
+
+
 
         }, function(error) {
 
