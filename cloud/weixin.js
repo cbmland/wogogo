@@ -183,7 +183,7 @@ var receiveMessage = function(msg, cb) {
                 }
             );
 
-
+            console.log('photoNum',photoNum);
             value.set("photoNum", photoNum);
             value.save();
 
