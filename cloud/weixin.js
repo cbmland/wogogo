@@ -123,11 +123,11 @@ var receiveMessage = function(msg, cb) {
         post.set("title", msg.xml.Content[0]);
         post.set("content", msg.xml.Content[0]);
         post.set("approved", 0);
+        post.set("photoNum", 0);
 
         post.save().then(function(value) {
 
             //console.log('post.save()',value);
-
 
             function setPostId(results) {
 
@@ -150,6 +150,8 @@ var receiveMessage = function(msg, cb) {
 
             }
 
+            var photoNum = 0;
+
             //查找图片，更新关联的postId
             var query = new AV.Query('Photo');
             query.equalTo("user", msg.xml.FromUserName[0]);
@@ -158,36 +160,16 @@ var receiveMessage = function(msg, cb) {
             query.limit(5);
 
             query.find().then(
-
-                /*function (photos) {
-
-                //console.log(photos);
-
-                var results = photos;
-                for (var i = 0; i < results.length; i++) {
-                    var object = results[i];
-                    object.set('postId',value.id);
-                    object.save().then(
-                        function(value) {
-
-                            console.log('object set postId =',value.id);
-
-                        }
-                    ,
-                        function(error) {
-                            console.log('object.save()',error);
-                        }
-                    );
-                }
-
-
-            }*/
-                setPostId, function(error){
+                function(results) {
+                    photoNum = results.length;
+                    setPostId(results);
+                },
+                function(error){
                     console.log('Photo.Find()',error);
                 }
             );
 
-            //查找图片，更新关联的postId
+            //查找地理位置，更新关联的postId
             var query = new AV.Query('Location');
             query.equalTo("user", msg.xml.FromUserName[0]);
             query.equalTo("postId", "");
@@ -203,6 +185,9 @@ var receiveMessage = function(msg, cb) {
 
             console.log('post.save()',error);
         });
+
+        post.set("photoNum", photoNum);
+        post.save();
 
         content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
 
