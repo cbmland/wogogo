@@ -72,6 +72,7 @@ var receiveMessage = function(msg, cb) {
         var request = require('request');
         var fs = require('fs');
         var imgUrl = msg.xml.PicUrl[0];
+        var localIndex = 0;
         var r = request(imgUrl,function(error,response,body){
 
             console.log('imgUrl request',imgUrl,response,body);
