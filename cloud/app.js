@@ -134,16 +134,18 @@ function home(req, res){
     var innerQuery = new AV.Query('Post');
     innerQuery.descending('createdAt');
     innerQuery.limit(5);
-    var query = new AV.Query('Photo');
-    query.matchesQuery("post", innerQuery);
-    query.include("post");
+    var query = new AV.Query('Post');
+    //query.matchesQuery("post", innerQuery);
+    query.descending('createdAt');
+    query.limit(5);
+    query.include("pics");
     query.find({
         success: function(results) {
             console.log('------');
             for (var i = 0; i < results.length; i++) {
                 var object = results[i];
 
-                console.log(object.get('post'));
+                console.log(object.get('pics'));
             }
         }
     });

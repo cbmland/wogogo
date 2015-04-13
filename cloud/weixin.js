@@ -168,7 +168,7 @@ var receiveMessage = function(msg, cb) {
                     photoNum = results.length;
                     console.log('photoNum',photoNum);
                     value.set("photoNum", photoNum);
-                    value.set('photos',results);
+                    value.set('pics',results);
                     value.save();
 
                     setPostId(results);
@@ -185,7 +185,15 @@ var receiveMessage = function(msg, cb) {
             query.ascending('createdAt');
             query.limit(5);
 
-            query.find().then(setPostId, function(error){
+            query.find().then(
+                function(results) {
+
+                    value.set('location',results);
+                    value.save();
+
+                    setPostId(results);
+
+                }, function(error){
                     console.log('Photo.Find()',error);
                 }
             );
