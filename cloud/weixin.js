@@ -85,12 +85,16 @@ var receiveMessage = function(msg, cb) {
 
             console.log('imgUrl request',imgUrl,response,body);
 
-            //var buffer = fs.readFileSync('wxdownloadtemp'+ localIndex + '.png');
+
             var base64Data = response.toString('base64');
-            var avFile = new AV.File('wxdownloadtemp' + localIndex + '.png',  response);
+
+            console.log('imgUrl base64',base64Data);
+            
+            var buffer = fs.readFileSync('wxdownloadtemp.png');
+            var avFile = new AV.File('wxdownloadtemp.png',  buffer);
 
             avFile.save().then(function(){
-                //promise.resolve(avFile.url());
+                promise.resolve(avFile.url());
                 console.log('imgUrl request success!');
             });
 
