@@ -102,7 +102,7 @@ var receiveMessage = function(msg, cb) {
             }, function(error) {
                 // The file either could not be read, or could not be saved to AV.
             });
-            
+
 
         });
 
@@ -115,7 +115,14 @@ var receiveMessage = function(msg, cb) {
         post.set("content", msg.xml.Content);
         post.set("approved", 0);
 
-        post.save();
+        post.save().then(function(value) {
+
+            console.log('pic.save()',value);
+
+        }, function(error) {
+            
+            console.log('pic.save()',error);
+        });
 
         content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
 
