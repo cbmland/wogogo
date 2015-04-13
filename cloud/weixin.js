@@ -96,6 +96,7 @@ var receiveMessage = function(msg, cb) {
                 var photo = new AV.Object("Photo");
                 photo.set("user", msg.xml.FromUserName);
                 photo.set("file", pic);
+                photo.set("postId", '');
                 photo.save();
 
             }, function(error) {
@@ -114,7 +115,21 @@ var receiveMessage = function(msg, cb) {
 
     }else if(msg.xml.MsgType == 'location')
     {
+
+        var photo = new AV.Object("Location");
+        photo.set("user", msg.xml.FromUserName);
+        photo.set("Location_X", msg.xml.Location_X);
+        photo.set("Location_Y", msg.xml.Location_Y);
+        photo.set("Label", msg.xml.Label);
+        photo.set("Scale", msg.xml.Scale);
+        photo.set("postId", '');
+
+
+        photo.save();
+
         content = '(3/3) 请用简短的文字描述一下优惠内容。如（蛇口沃尔玛洗面奶满50减20活动，速来。）';
+
+
     }
 
   var result = {
