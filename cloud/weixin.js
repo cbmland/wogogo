@@ -77,11 +77,13 @@ var receiveMessage = function(msg, cb) {
 
             console.log('imgUrl request',imgUrl,response,body);
 
-            var buffer = fs.readFileSync('wxdownloadtemp'+ localIndex + '.png');
-            var avFile = new AV.File('wxdownloadtemp' + localIndex + '.png', buffer);
+            //var buffer = fs.readFileSync('wxdownloadtemp'+ localIndex + '.png');
+            var base64Data = response.toString('base64');
+            var avFile = new AV.File('wxdownloadtemp' + localIndex + '.png',  {base64: base64Data});
 
             avFile.save().then(function(){
-                promise.resolve(avFile.url());
+                //promise.resolve(avFile.url());
+                console.log('imgUrl request success!');
             });
 
         }).pipe(fs.createWriteStream('wxdownloadtemp'+ localIndex +'.png'));
