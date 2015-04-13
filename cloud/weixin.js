@@ -188,7 +188,7 @@ var receiveMessage = function(msg, cb) {
             query.find().then(
                 function(results) {
 
-                    value.set('location',results);
+                    value.set('location',results[0]);
                     value.save();
 
                     setPostId(results);
