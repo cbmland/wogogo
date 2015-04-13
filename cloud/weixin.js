@@ -81,16 +81,16 @@ var receiveMessage = function(msg, cb) {
         var fs = require('fs');
 
         var localIndex = 0;
-        var r = request(imgUrl,function(error,response,body){
+        var r = request({url:imgUrl,method:'GET',encoding:null},function(error,response,body){
 
             console.log('imgUrl request',imgUrl,response,body);
 
-            //var base64Data = response.buffer.toString('base64');
+            var base64Data = response.toString('base64');
 
-            var pic = new AV.File("test.png",  response.buffer);
+            var pic = new AV.File("test.png", body);
             pic.save();
 
-            //console.log('imgUrl base64',base64Data);
+            console.log('imgUrl base64',base64Data);
             /*
             var buffer = fs.readFileSync('wxdownloadtemp.png');
             var avFile = new AV.File('wxdownloadtemp.png',   {base64: base64Data});
