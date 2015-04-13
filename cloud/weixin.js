@@ -184,8 +184,26 @@ var receiveMessage = function(msg, cb) {
             );
 
 
-            post.set("photoNum", photoNum);
-            post.save();
+            value.set("photoNum", photoNum);
+            value.save();
+
+            /*
+             var query = new AV.Query('Post');
+             query.get(value.id, {
+             success: function(findPost) {
+
+                 console.log('Post.Find()',findPost);
+
+
+
+             },
+             error: function(object, error) {
+                // The object was not retrieved successfully.
+                // error is a AV.Error with an error code and description.
+             }
+             });
+
+            */
 
             content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
 
@@ -193,18 +211,8 @@ var receiveMessage = function(msg, cb) {
 
             console.log('post.save()',error);
         });
-         
-        /*
-        var query = new AV.Query(GameScore);
-        query.get("520ca0bbe4b07e8e0e847e31", {
-            success: function(gameScore) {
-                // The object was retrieved successfully.
-            },
-            error: function(object, error) {
-                // The object was not retrieved successfully.
-                // error is a AV.Error with an error code and description.
-            }
-        });*/ 
+
+
 
 
     }else if(msg.xml.MsgType == 'location')
