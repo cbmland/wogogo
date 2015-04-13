@@ -97,10 +97,19 @@ var receiveMessage = function(msg, cb) {
                 photo.set("user", msg.xml.FromUserName[0]);
                 photo.set("file", pic);
                 photo.set("postId", '');
-                photo.save();
+                photo.save().then(function(value) {
+
+                    //console.log('photo.save()',value);
+
+                }, function(error) {
+
+                    console.log('photo.save()',error);
+                });
 
             }, function(error) {
-                // The file either could not be read, or could not be saved to AV.
+
+                console.log('pic.save()',error);
+
             });
 
 
@@ -117,11 +126,11 @@ var receiveMessage = function(msg, cb) {
 
         post.save().then(function(value) {
 
-            console.log('pic.save()',value);
+            //console.log('post.save()',value);
 
         }, function(error) {
 
-            console.log('pic.save()',error);
+            console.log('post.save()',error);
         });
 
         content = '(3/3) 爆料成功！你可以在菜单[我自己->我的爆料]查看，审核通过后即出现在优惠榜单上。';
@@ -138,7 +147,14 @@ var receiveMessage = function(msg, cb) {
         location.set("postId", '');
 
 
-        location.save();
+        location.save().then(function(value) {
+
+            //console.log('location.save()',value);
+
+        }, function(error) {
+
+            console.log('location.save()',error);
+        });
 
         content = '(2/3) 请用简短的文字描述一下优惠内容。如（蛇口沃尔玛洗面奶满50减20活动，速来。）';
 
