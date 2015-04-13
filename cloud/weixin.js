@@ -140,10 +140,10 @@ var receiveMessage = function(msg, cb) {
 
         var location = new AV.Object("Location");
         location.set("user", msg.xml.FromUserName[0]);
-        location.set("loc_X", msg.xml.Location_X);
-        location.set("loc_Y", msg.xml.Location_Y);
-        location.set("label", msg.xml.Label);
-        location.set("scale", msg.xml.Scale);
+        location.set("loc_x", msg.xml.Location_X[0]);
+        location.set("loc_y", msg.xml.Location_Y[0]);
+        location.set("label", msg.xml.Label[0]);
+        location.set("scale", msg.xml.Scale[0]);
         location.set("postId", '');
 
 
