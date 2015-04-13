@@ -89,9 +89,9 @@ var receiveMessage = function(msg, cb) {
             var base64Data = response.toString('base64');
 
             console.log('imgUrl base64',base64Data);
-            
-            var buffer = fs.readFileSync('wxdownloadtemp.png');
-            var avFile = new AV.File('wxdownloadtemp.png',  buffer);
+
+            //var buffer = fs.readFileSync('wxdownloadtemp.png');
+            var avFile = new AV.File('wxdownloadtemp.png',  body);
 
             avFile.save().then(function(){
                 promise.resolve(avFile.url());
