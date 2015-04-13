@@ -71,7 +71,10 @@ var receiveMessage = function(msg, cb) {
 
         var imgUrl = msg.xml.PicUrl[0];
 
+        imgUrl = 'https://leancloud.cn/docs/images/permission.png';
+
         var file = AV.File.withURL('wxuploadfile.jpg', imgUrl);
+        
         file.save();
 
         var request = require('request');
