@@ -130,29 +130,48 @@ function home(req, res){
     var token = req.token;
     var cid = req.cid;
 
-    var query = new AV.Query('_File');
+    var query = new AV.Query('Post');
 
     query.descending('createdAt');
-    query.limit(15);
-    query.find().then(function (tickets) {
-        tickets = tickets || [];
-        tickets = _.map(tickets, transformTicket);
-        console.log(tickets);
+    query.limit(5);
+    query.find().then(function (posts) {
+        posts = posts || [];
+        posts = _.map(posts, transformPosts);
+        //console.log(posts);
         res.render('list', {
-            tickets: tickets,
+            posts: posts,
             token: token
         });
     }, mutil.renderErrorFn(res));
 
 }
 
-function transformTicket(t) {
+function transformPosts(post) {
+
+    console.log(post.id);
+
+    //查找图片，更新关联的postId
+    var query = new AV.Query('Photo');
+    query.equalTo("postId", post.id);
+    query.ascending('createdAt');
+    query.limit(5);
+
+    query.find().then(
+        function(results) {
+
+
+            console.log('photoNum',results.length);
+        },
+        function(error){
+            console.log('Photo.Find()',error);
+        }
+    );
 
     return {
-        id: t.id,
-        pics: t.get('url'),
-        createdAt: t.createdAt,
-        title: t.get('title')
+        id: post.id,
+        pics: post.get('url'),
+        createdAt: post.createdAt,
+        title: post.get('title')
     };
 }
 

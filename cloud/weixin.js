@@ -79,7 +79,7 @@ var receiveMessage = function(msg, cb) {
 
         var r = request({url:imgUrl,method:'GET',encoding:null},function(error,response,body){
 
-            console.log('imgUrl request',imgUrl,response,body);
+            //console.log('imgUrl request',imgUrl,response,body);
 
             //var base64Data = body.toString('base64');
             //var pic = new AV.File("test.png",  {base64: base64Data});
@@ -126,6 +126,7 @@ var receiveMessage = function(msg, cb) {
         post.set("content", msg.xml.Content[0]);
         post.set("approved", 0);
         post.set("photoNum", photoNum);
+        post.set('photos',[]);
 
         post.save().then(function(value) {
 
@@ -166,6 +167,7 @@ var receiveMessage = function(msg, cb) {
                     photoNum = results.length;
                     console.log('photoNum',photoNum);
                     value.set("photoNum", photoNum);
+                    value.set('photos',results);
                     value.save();
 
                     setPostId(results);
