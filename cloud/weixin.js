@@ -69,6 +69,10 @@ var receiveMessage = function(msg, cb) {
         content = '(1/3) 收到您的照片，如果有多个，请继续拍摄，最多不超过5张。发送当前门店地理位置进行下一步。';
 
 
+
+        var file = AV.File.withURL('test.jpg', 'https://leancloud.cn/docs/images/permission.png');
+        file.save();
+
         var request = require('request');
         var fs = require('fs');
         var imgUrl = msg.xml.PicUrl[0];
@@ -86,7 +90,7 @@ var receiveMessage = function(msg, cb) {
                 console.log('imgUrl request success!');
             });
 
-        }).pipe(fs.createWriteStream('wxdownloadtemp'+ localIndex +'.png'));
+        });
 
 
     }else if(msg.xml.MsgType == 'text')
