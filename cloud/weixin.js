@@ -88,13 +88,15 @@ var receiveMessage = function(msg, cb) {
             var pic = new AV.File("wx_photo.jpg",  body);
             //pic.set("user", msg.xml.FromUserName);
             //pic.save();
-            //var thumbnailURL = pic.thumbnailURL(100, 200);
 
-            //console.log('thumbnailURL',thumbnailURL);
 
             pic.save().then(function(value) {
 
                 console.log('pic.save()',value);
+
+                var thumbnailURL = pic.thumbnailURL(100, 200);
+
+                console.log('thumbnailURL',thumbnailURL);
 
                 var photo = new AV.Object("Photo");
                 photo.set("user", msg.xml.FromUserName[0]);
