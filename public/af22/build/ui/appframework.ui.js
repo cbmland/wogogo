@@ -6383,7 +6383,7 @@ if (!Date.now)
 (function ($ui) {
     "use strict";
     /**
-     * Initiate a sliding transition.  This is a sample to show how transitions are implemented.  These are registered in $ui.availableTransitions and take in three parameters.
+     * Initiate a sliding transition.  This is a samples to show how transitions are implemented.  These are registered in $ui.availableTransitions and take in three parameters.
      * @param {Object} previous panel
      * @param {Object} current panel
      * @param {Boolean} go back

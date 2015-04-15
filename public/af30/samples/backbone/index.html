@@ -33,35 +33,81 @@
 
     </div>
     <div class="view" id="mainview">
-        <header>
+        <header id="header">
+
             <h1>Welcome</h1>
+            <a id="menuBtn" href="javascript:;" class="button icon user" style="float: right" data-transition="reveal" data-left-menu="left">菜单</a>
+
         </header>
         <div class="pages">
             <div class="panel active" id="main" data-title="Welcome" data-selected="true" >
 
-
-                <a class="button addBtn" id="addTodo">Add</a>
-
-                <a href="#" class="button" onclick="$.afui.drawer.show('#left','left','reveal')">Left Reveal</a>
-
                 <ul class="list inset" id="todoList">
                 </ul>
 
+                <a class="button addBtn" id="addTodo">添加一列</a>
+
             </div>
-            <div class="panel" id="settings" data-title="Settings">
-                settings.
+
+            <div class="panel" id="account" data-title="帐户管理">
+                新鲜优惠券帐户管理
+                <br/>
+                <a href="#login" data-transition="up-reveal">帐户登录</a>
             </div>
-            <div class="panel" id="about" data-title="About">
-                This basic demo shows how to use Backbone and App Framework UI together.
+            <div class="panel" id="settings" data-title="偏好设置">
+                新鲜优惠券偏好设置
+            </div>
+            <div class="panel" id="about" data-title="关于">
+                关于新鲜优惠券
             </div>
         </div>
+
+
+
         <nav id="left"  style="z-index:5" data-include="leftnav.html">
 
         </nav>
+
+        <nav id="right"  style="z-index:5" data-include="leftnav.html">
+
+        </nav>
+
+
     </div>
+
+    <div class="view" id="loginView">
+        <div class="pages">
+            <div class="panel" id="login">
+                <br>
+                <div class="card">
+                    <h1>Login</h1>
+                    <br>
+                    <div class="input-group">
+                        <input type="text" placeholder="Username">
+
+                        <input type="text" placeholder="password">
+                    </div>
+                    <a class='button' href='#main' data-transition='up-reveal:dismiss'>Cancel</a>
+                    <a class='button' href='#main' data-transition='up-reveal:dismiss'>Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 <script type="text/html" id="todoTemplate">
-<li><%=title%></li>
+<li>
+    <img src="<%-img%>" width="100" height="100" border="0">
+    <img src="<%-img%>" width="100" height="100" border="0">
+    <img src="<%-img%>" width="100" height="100" border="0">
+    <p><%=title%></p>
+
+    <div style="text-align: right">
+    <span class=" icon heart" ></span>
+    <span class=" icon message" ></span>
+    </div>
+</li>
 </script>
 <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
 
