@@ -38,22 +38,26 @@
         </header>
         <div class="pages">
             <div class="panel active" id="main" data-title="Welcome" data-selected="true" >
-                <h1>Todo</h1>
 
-                <input type="text" placeholder="Enter Todo" id="todoVal" >  <a class="button addBtn" id="addTodo">Add</a>
-                <hr>
+
+                <a class="button addBtn" id="addTodo">Add</a>
+
+                <a href="#" class="button" onclick="$.afui.drawer.show('#left','left','reveal')">Left Reveal</a>
 
                 <ul class="list inset" id="todoList">
                 </ul>
+
+            </div>
+            <div class="panel" id="settings" data-title="Settings">
+                settings.
             </div>
             <div class="panel" id="about" data-title="About">
                 This basic demo shows how to use Backbone and App Framework UI together.
             </div>
         </div>
-        <footer>
-            <a href="#main" class="icon home" data-transition="slide">todo</a>
-            <a href="#about" class="icon settings" data-transition="slide">about</a>
-        </footer>
+        <nav id="left"  style="z-index:5" data-include="leftnav.html">
+
+        </nav>
     </div>
 </body>
 <script type="text/html" id="todoTemplate">

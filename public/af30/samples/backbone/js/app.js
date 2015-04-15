@@ -12,12 +12,11 @@
         },
         template:_.template($('#todoTemplate').html()),
         addTodo:function(){
-            var item=$("#todoVal");
-            var val=item.val();
-            if(val.length<2) return;
+
+            var val='元素item';
 
             todos.push(val);
-            item.val('');
+
             $("#todoList").append(this.template({title:val}));
         },
         removeTodo:function(e){
