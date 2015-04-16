@@ -61,7 +61,7 @@
         var a= new app();
 
             //JSON跨域解决getScript动态添加脚本
-            $.getScript('http://dev.wogogo.avosapps.com/page?p='+ a.pageNum, function () {
+            $.getScript('http://dev.wogogo.avosapps.com/page/'+ a.pageNum, function () {
                 //console.log(data);
 
                 var items = data;

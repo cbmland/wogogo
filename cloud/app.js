@@ -198,10 +198,10 @@ function home(req, res){
     }, mutil.renderErrorFn(res));
 
 }
-app.get('/page', homeJson);
+app.get('/page/:num', homeJson);
 function homeJson(req, res){
 
-    var pageNum = req.p;
+    var pageNum = req.params.num;
     console.log(pageNum);
     if(pageNum==undefined || pageNum<0 || isNaN(pageNum))
     {
