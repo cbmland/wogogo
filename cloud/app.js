@@ -198,7 +198,7 @@ function home(req, res){
     }, mutil.renderErrorFn(res));
 
 }
-app.get('/new', homeJson);
+app.get('/page', homeJson);
 function homeJson(req, res){
 
     var token = req.token;
