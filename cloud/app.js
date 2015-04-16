@@ -202,6 +202,7 @@ app.get('/page', homeJson);
 function homeJson(req, res){
 
     var pageNum = req.p;
+    console.log(pageNum);
     if(pageNum==undefined || pageNum<0 || isNaN(pageNum))
     {
         pageNum=1;
