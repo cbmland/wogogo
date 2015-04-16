@@ -123,7 +123,7 @@ app.get('/logout', function (req, res) {
 app.get('/', home);
 
 //使用express路由API服务/hello的http GET请求
-app.get('/new', homeJson);
+
 
 function home(req, res){
 
@@ -198,7 +198,7 @@ function home(req, res){
     }, mutil.renderErrorFn(res));
 
 }
-
+app.get('/new', homeJson);
 function homeJson(req, res){
 
     var token = req.token;
@@ -265,7 +265,7 @@ function homeJson(req, res){
 
         console.log(postsList);
 
-        var result_json = JSON.stringify(str);
+        var result_json = JSON.stringify(postsList);
 
         res.render('json', {
             result_json: result_json
