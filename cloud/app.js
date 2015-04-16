@@ -206,6 +206,7 @@ function homeJson(req, res){
     {
         pageNum=1;
     }
+    console.log(pageNum);
     var pageSize = 5;
     var query = new AV.Query('Post');
 
