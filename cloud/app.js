@@ -265,10 +265,11 @@ function homeJson(req, res){
 
         console.log(postsList);
 
-        var result_json = JSON.stringify(postsList);
+        var json_data = JSON.stringify(postsList);
 
         res.render('json', {
-            result_json: result_json
+            json_name:'data',
+            json_data: json_data
         });
     }, mutil.renderErrorFn(res));
 

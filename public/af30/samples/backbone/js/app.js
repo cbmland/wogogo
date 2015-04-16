@@ -55,6 +55,11 @@
 
         var a= new app();
 
+            //JSON跨域解决getScript动态添加脚本
+            $.getScript('http://dev.wogogo.avosapps.com/new', function (data) {
+                console.log(arguments);
+            });
+
         a.addTodo();
         a.addTodo();
         a.addTodo();
