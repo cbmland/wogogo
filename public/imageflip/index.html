@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>imageflip Example</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+<script src="js/imageflip.mini.js"></script>
+<style type="text/css">
+#iGallery		{list-style:none; padding:0px; margin:0px}
+#iGallery li	{list-style:none; padding:2px; margin:2px; border:1px solid #999; float:left}
+
+/* imageflip CSS. Copy & Paste this to your CSS file */
+#imageflippage	{background-color:#000; margin:0px; padding:0px; border:none; height:100%; width:100%}
+#tadcontent		{padding:0px; margin:0px; position:relative; background:#000; height:100%; width:100%;}
+#imageflipimg	{vertical-align:middle; height:100%; width:100%; z-index:98; background-position:center; background-size:contain; text-align:center; background-repeat:no-repeat }
+#imagefliper	{width:100%; top:45px; bottom:0px; position:absolute; z-index:99}
+#tadnavi		{position:fixed; top:0px; z-index:100; width:100%; opacity:0.7; display:none }
+#tadinfo		{position:fixed; display:none; bottom:0px; width:100%; padding:5px; background-color:#333333; opacity:0.7; color:#FFFFFF; text-align:center; font-size:small; font-family:Verdana, Geneva, sans-serif}
+
+</style>
+<script type="text/javascript">
+$( document ).delegate("#home", "pageinit", function() {
+	$('#iGallery').imageflip()
+})
+</script>
+</head>
+<body>
+
+<div data-role="page" id="home" data-theme="c" data-title="imageFlip Demo">
+	<div data-role="header" data-theme="d" id="header"><h1>Example</h1></div>
+	<div data-role="content" id="content">
+		<div class="content-primary">	
+		<ul id="iGallery">
+			<li><a href="images/4f7d341e82ba1.jpg"><img src="images/_4f7d341e82ba1.jpg" /></a></li>
+			<li><a title="Add Image discription to Title Attribe of A tag to display in here" href="images/4f7d363cb2236.jpg"><img src="images/_4f7d363cb2236.jpg" /></a></li>
+			<li><a href="images/4f7d386046e12.jpg"><img src="images/_4f7d386046e12.jpg" /></a></li>
+			<li><a href="images/4f506f7a8ef30.jpg"><img src="images/_4f506f7a8ef30.jpg" /></a></li>
+			<li><a href="images/4f975e2862141.jpg"><img src="images/_4f975e2862141.jpg" /></a></li>
+			<li><a href="images/4f85120f97815.jpg"><img src="images/_4f85120f97815.jpg" /></a></li>
+			<li><a href="images/4f85134ae2c05.jpg"><img src="images/_4f85134ae2c05.jpg" /></a></li>
+			<li><a href="images/4f828774366b1.jpg"><img src="images/_4f828774366b1.jpg" /></a></li>
+			<li><a href="images/4fce4e99213b5.jpg"><img src="images/_4fce4e99213b5.jpg" /></a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
