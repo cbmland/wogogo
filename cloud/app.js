@@ -123,7 +123,7 @@ app.get('/logout', function (req, res) {
 app.get('/', home);
 
 //使用express路由API服务/hello的http GET请求
-app.get('/tickets', home);
+app.get('/new', homeJson);
 
 function home(req, res){
 
@@ -199,6 +199,80 @@ function home(req, res){
 
 }
 
+function homeJson(req, res){
+
+    var token = req.token;
+    var cid = req.cid;
+
+    var query = new AV.Query('Post');
+
+    query.descending('createdAt');
+    query.limit(5);
+    query.include("pics");
+    query.include("location");
+    query.find().then(function (posts) {
+        posts = posts || [];
+
+        //console.log('------');
+
+
+        var postsList = [];
+
+        for (var i = 0; i < posts.length; i++) {
+
+            var post = posts[i];
+
+            var itemData = {title:post.get('title'),pics:[],location:{},createdAt:post.createdAt}
+
+            var pics = post.get('pics');
+
+            var picsData = itemData.pics;
+            var locationData = itemData.location;
+
+            //console.log(post.createdAt)
+
+            if(pics && pics.length>0)
+            {
+                for(var p=0;p<pics.length;p++)
+                {
+                    var pic = pics[p];
+
+                    var pic_url = pic.get('file')['_url'];
+
+                    picsData[p] = {url:pic_url};
+
+                    //console.log(pic_url);
+                }
+
+            }
+
+
+            var locationRaw = post.get('location');
+
+            if(locationRaw)
+            {
+                //console.log(locationRaw.get('loc_x'));
+
+                locationData.loc_x = locationRaw.get('loc_x');
+                locationData.loc_y = locationRaw.get('loc_y');
+                locationData.label = locationRaw.get('label');
+
+            }
+
+            postsList[i] = itemData;
+
+        }
+
+        console.log(postsList);
+
+        var result_json = JSON.stringify(str);
+
+        res.render('json', {
+            result_json: result_json
+        });
+    }, mutil.renderErrorFn(res));
+
+}
 
 app.get('/profile', function(req, res){
 
