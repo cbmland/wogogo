@@ -4,22 +4,58 @@
     "use strict";
 
     var todos=[];
-    var app=Backbone.View.extend({
+    var APP=Backbone.View.extend({
         el: '#main',
         events: {
-            'click #addTodo': 'addTodo',
+            'click #addTodo': 'getNextPage',
+
             'click .thumb': 'showPhoto',
             'longTap li': 'removeTodo'
         },
         template:_.template($('#todoTemplate').html()),
         addTodo:function(item){
 
-            var val='元素item';
-            var imgUrl = 'http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg?imageView/2/w/200/h/200/q/60/format/jpg';
+            todos.push(item);
 
-            todos.push(val);
+            $("#todoList").append(this.template({title:item.title,pics:item.pics}));
+        },
+        getNextPage:function(e){
 
-            $("#todoList").append(this.template({title:item.title,img:imgUrl,pics:item.pics}));
+
+            //JSON跨域解决getScript动态添加脚本
+
+            var that = this;
+            $.getScript('http://dev.wogogo.avosapps.com/page/'+ this.pageNum, function () {
+                //console.log(data);
+                var items = data;
+
+                if(items && items.length>0)
+                {
+                    for(var i=0;i<data.length;i++)
+                    {
+                        var item = data[i];
+
+                        that.addTodo(item);
+                    }
+
+                    that.pageNum++;
+
+                }else{
+
+                    alert('已没有更多的数据。');
+                }
+
+            });
+        }
+        ,
+        hidePhoto:function(e){
+
+            //console.log(e);
+            //
+            $.afui.loadContent('#main',false,false,'fade');
+
+            $.afui.hideMask();
+
         },
         showPhoto:function(e)
         {
@@ -37,11 +73,19 @@
                 'background-image': 'url(' + imgSmall + ')'
             });
 
-            $.afui.loadContent('#photo',false,false,'pop');
+            $.afui.loadContent('#photo',false,false,'flip');
+            //$.afui.showMask();
+            var inter = setTimeout($.afui.showMask,300)
 
-            $('#imageflipimg').css({
-                'background-image': 'url(' + imgBig + ')'
+            $('<img/>').attr('src', imgBig).load(function() {
+                $(this).remove(); // prevent memory leaks as @benweet suggested
+                $('#imageflipimg').css({'background-image': 'url(' + imgBig + ')'});
+                clearTimeout(inter);
+                $.afui.hideMask();
+
             });
+
+
 
         },
         removeTodo:function(e){
@@ -58,22 +102,11 @@
 
     $.afui.ready(function(){
 
-        var a= new app();
-
-            //JSON跨域解决getScript动态添加脚本
-            $.getScript('http://dev.wogogo.avosapps.com/page/'+ a.pageNum, function () {
-                //console.log(data);
-
-                var items = data;
-
-                for(var i=0;i<data.length;i++)
-                {
-                    var item = data[i];
-
-                    a.addTodo(item);
-                }
-
-            });
+        var app= new APP();
+        $.afui.useOSThemes=false;
+        $.afui.app = app;
+        app.getNextPage();
+        $.afui.goBack();
 
     });
 })(jQuery);
