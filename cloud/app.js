@@ -201,20 +201,22 @@ function home(req, res){
 app.get('/page', homeJson);
 function homeJson(req, res){
 
-    var token = req.token;
-    var cid = req.cid;
-
+    var pageNum = req.p;
+    if(pageNum==undefined || pageNum<0 || isNaN(pageNum))
+    {
+        pageNum=1;
+    }
+    var pageSize = 5;
     var query = new AV.Query('Post');
 
     query.descending('createdAt');
-    query.limit(5);
+    query.limit(pageSize);
+    query.skip((pageNum-1)*pageSize);
+
     query.include("pics");
     query.include("location");
     query.find().then(function (posts) {
         posts = posts || [];
-
-        //console.log('------');
-
 
         var postsList = [];
 

@@ -212,11 +212,10 @@
 
     <div class="button-grouped">
 
-    <div class="thumb" style="background:url('<%-img%>?imageView/2/w/135/h/135/q/80/format/jpg') center no-repeat">
-    </div>
-
-    <div class="thumb" style="background:url('<%-img%>?imageView/2/w/135/h/135/q/80/format/jpg') center no-repeat">
-    </div>
+        <% pics.forEach (function (pic){ %>
+            <div class="thumb" style="background:url('<%- pic.url %>?imageView/2/w/135/h/135/q/80/format/jpg') center no-repeat">
+            </div>
+        <% }) %>
 
     </div>
     <p><%=title%></p>
