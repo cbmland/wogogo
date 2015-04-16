@@ -40,7 +40,8 @@
             vertical-align:middle;
         }
 
-
+        #imageflipimg	{vertical-align:middle; height:100%; width:100%; z-index:98; background-position:center; background-size:contain; text-align:center; background-repeat:no-repeat }
+        #tadcontent		{padding:0px; margin:0px; position:relative; background:#000; height:100%; width:100%;}
     </style>
 
 
@@ -121,7 +122,7 @@
         <header>
 
             <h1>Welcome</h1>
-            <a id="menuBtn" class="menuButton"  data-transition="reveal" data-left-menu="left"></a>
+            <a id="menuBtn" class="menuButton"  data-transition="reveal" data-right-menu="left"></a>
 
         </header>
         <div class="pages">
@@ -182,8 +183,9 @@
     </div>
     <div class="view" id="photoView">
     <div class="pages">
-        <div title="Pop" id="photo" class="panel splashscreen" onclick="$.afui.loadContent('#main',false,false,'fade');"  style="width: 100%">
+        <div title="Pop" id="photo" class="panel" style="padding: 0px 0px;" onclick="$.afui.loadContent('#main',false,false,'fade');" >
 
+            <!--
             <div class="imgBox">
                 <img id="imgSmall" onload="AutoZoomImage($(document).height(),$(document).width(),this)"/>
             </div>
@@ -192,7 +194,12 @@
                 <img id="imgBig"  onload="AutoResizeImage($(document).height(),$(document).width(),this)" src=""/>
             </div>
 
+            </div>-->
+
+            <div id="tadcontent">
+                <div id="imageflipimg"></div>
             </div>
+
         </div>
 
     </div>

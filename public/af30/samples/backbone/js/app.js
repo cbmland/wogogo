@@ -24,10 +24,20 @@
         showPhoto:function(e)
         {
             //$('#imgBox').css( "background:url('http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg') center no-repeat" );
-            $('#imgSmall').attr('src',"http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg?imageView/2/w/200/h/200/q/60/format/jpg");
+            //$('#imgSmall').attr('src',"http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg?imageView/2/w/200/h/200/q/60/format/jpg");
 
-            $('#imgBig').attr('src','http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg');
+            //$('#imgBig').attr('src','http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg');
+
+            $('#imageflipimg').css({
+                'background-image': 'url(' + 'http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg?imageView/2/w/200/h/200/q/60/format/jpg' + ')'
+            });
+
             $.afui.loadContent('#photo',false,false,'pop');
+
+            $('#imageflipimg').css({
+                'background-image': 'url(' + 'http://ac-0rg4booz.clouddn.com/53cfcd2314328ec8.jpg' + ')'
+            });
+
         },
         removeTodo:function(e){
             var item=$(e.target);
