@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+<head>
+
+    <title>AF/Angular</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="af30/build/af.ui.css" />
+    <link rel="stylesheet" type="text/css" href="af30/build/icons.css" />
+
+    <style type="text/css">
+
+        .thumb {
+            border:0px solid #000;
+            width:100px;
+            height:100px;
+        }
+
+        .imgBox {
+
+            display: table-cell;
+            vertical-align:middle;
+
+            text-align:center;
+
+            *display: block;
+            *font-size: 175px;
+            *font-family:Arial;
+            width:200px;
+            height:200px;
+            border: 1px solid #eee;
+        }
+        .imgBox img {
+
+            vertical-align:middle;
+        }
+
+        #imageflipimg	{vertical-align:middle; height:100%; width:100%; z-index:98; background-position:center; background-size:contain; text-align:center; background-repeat:no-repeat }
+        #tadcontent		{padding:0px; margin:0px; position:relative; background:#000; height:100%; width:100%;}
+    </style>
+
+
+   <script type="text/javascript" charset="utf-8" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
+    <script src="af30/build/appframework.ui.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+    <script>
+        $.afui.useOSThemes=false;
+    </script>
+
+
+</head>
+
+<body id="todoaf">
+    <div id="splashscreen" class='ui-loader heavy'>
+        App Framework
+        <br>
+        <br>
+        <span class='ui-icon ui-icon-loading spin'></span>
+        <h1>Starting app</h1>
+
+    </div>
+
+
+    <div class="view" id="mainview">
+        <header>
+
+            <h1>Welcome</h1>
+            <a id="menuBtn" class="menuButton"  data-transition="" data-left-menu="left"></a>
+
+        </header>
+        <div class="pages">
+            <div class="panel active" id="main" data-title="Welcome" >
+
+                <ul class="list inset" id="todoList">
+                </ul>
+
+                <a class="button addBtn" id="addTodo">下一页</a>
+
+            </div>
+
+            <div class="panel" id="account" data-title="帐户管理">
+                新鲜优惠券帐户管理
+                <br/>
+                <a href="#login" data-transition="up-reveal">帐户登录</a>
+            </div>
+            <div class="panel" id="settings" data-title="偏好设置">
+                新鲜优惠券偏好设置
+            </div>
+            <div class="panel" id="about" data-title="关于">
+                关于新鲜优惠券
+            </div>
+
+
+        </div>
+
+
+
+        <nav id="left"  style="z-index:5" data-include="leftnav.html">
+
+        </nav>
+
+        <nav id="right"  style="z-index:5" data-include="leftnav.html">
+
+        </nav>
+
+
+    </div>
+
+    <div class="view" id="loginView">
+        <div class="pages">
+            <div class="panel" id="login">
+                <br>
+                <div class="card">
+                    <h1>Login</h1>
+                    <br>
+                    <div class="input-group">
+                        <input type="text" placeholder="Username">
+
+                        <input type="text" placeholder="password">
+                    </div>
+                    <a class='button' href='#main' data-transition='up-reveal:dismiss'>Cancel</a>
+                    <a class='button' href='#main' data-transition='up-reveal:dismiss'>Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="view" id="photoView">
+    <div class="pages">
+
+        <div title="Pop" id="photo" class="panel" style="padding: 0px 0px;" onclick="$.afui.app.hidePhoto();" >
+
+            <div id="tadcontent">
+                <div id="imageflipimg"></div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+
+
+</body>
+<script type="text/html" id="todoTemplate">
+<li>
+
+    <div class="button-grouped">
+
+        <% pics.forEach (function (pic){ %>
+            <div class="thumb" style="background:url('<%- pic.url %>?imageView/2/w/135/h/135/q/80/format/jpg') center no-repeat">
+            </div>
+        <% }) %>
+
+    </div>
+    <p><%=title%></p>
+
+    <div style="text-align: right">
+    <span class=" icon heart" ></span>
+    <span class=" icon message" ></span>
+    </div>
+
+</li>
+</script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+</html>
