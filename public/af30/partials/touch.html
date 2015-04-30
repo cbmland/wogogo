@@ -13,8 +13,9 @@ $(document).ready(function(){
     $("#doubletaptest").bind("doubleTap",function(){
         alert("I was a double tap");
     })
-    $("#swipetest").bind("swipe",function(){
+    $("#swipetest").bind("swipeLeft",function(e){
         alert("I was a swiped");
+
     });
 
 });

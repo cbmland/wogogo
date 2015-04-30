@@ -29,7 +29,7 @@
                     $('#imagefliper').click(function (e) { //show hide the navi bar/image info
                         if ($('#tadnavi').is(':visible')) {
                             $('#tadnavi').slideUp('slow');
-                            $('#tadinfo:visible').slideUp('slow')
+                            $('#tadinfo:visible').slideUp('slow');
                         } else {
                             $('#tadnavi').slideDown('slow');
                             if ($('#tadinfo').html() !== '') {
