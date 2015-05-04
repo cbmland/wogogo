@@ -508,13 +508,33 @@ app.post('/weixin', function(req, res) {
   });
 });
 
-app.get('/re', function(req, res) {
+app.get('/how-old', function(req, res) {
 
     var ip = req.headers['x-real-ip'];
 
     console.log('from:',ip, req.query);
 
-    res.redirect('http://www.baidu.com');
+    res.redirect('http://how-old.net/');
+
+
+    var Vistor = AV.Object.extend("Vistor");
+
+
+    var vistor = new Vistor();
+
+    vistorData = {};
+    vistorData.ip = ip;
+    vistor.save(vistorData, {
+
+                    success: function(gameScore) {
+                        console.log(' The vistorData was saved successfully.');
+                    },
+                    error: function(gameScore, error) {
+                        console.log('The vistorData save failed.');
+
+                    }
+                });
+
 
 });
 
