@@ -508,5 +508,16 @@ app.post('/weixin', function(req, res) {
   });
 });
 
+app.get('/re', function(req, res) {
+
+    var ip = req.headers['x-real-ip'];
+
+    console.log('from:',ip, req.query);
+
+    res.redirect('http://www.baidu.com');
+
+});
+
+
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen();
