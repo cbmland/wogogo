@@ -512,7 +512,7 @@ app.get('/how-old', function(req, res) {
 
     var ip = req.headers['x-real-ip'];
 
-    console.log('from:',ip, req.query);
+    console.log('from:',ip, req,res);
 
     res.redirect('http://how-old.net/');
 
