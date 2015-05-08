@@ -511,8 +511,8 @@ app.post('/weixin', function(req, res) {
 app.get('/how-old', function(req, res) {
 
     var ip = req.headers['x-real-ip'];
-
-    console.log('from:',ip, req,res);
+    var ua = req.get('User-Agent');
+    console.log('from:',ip, ua);
 
     res.redirect('http://how-old.net/');
 
