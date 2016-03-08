@@ -391,7 +391,7 @@ function showUserInfoWX(userInfo,access_token)
 
         nickname: userInfo.get('nickname'),
         headimgurl: userInfo.get('headimgurl'),
-        access_token:access_token
+        access_token:userInfo.get('access_token')
 
     });
 }
@@ -441,7 +441,7 @@ function getUserInfoWX(access_token,openid,callback)
                                 }
                             });
                         }
-                        callback && callback(userInfo,access_token);
+                        callback && callback(userInfo);
 
                     },
                     error: function(httpResponse) {
