@@ -383,14 +383,15 @@ app.get('/wxlogin', function(req, res){
 
 
 });
-function showUserInfoWX(userInfo)
+function showUserInfoWX(userInfo,access_token)
 {
     var res = app_res;
 
     res.render('profile', {
 
         nickname: userInfo.get('nickname'),
-        headimgurl: userInfo.get('headimgurl')
+        headimgurl: userInfo.get('headimgurl'),
+        access_token:access_token
 
     });
 }
@@ -440,7 +441,7 @@ function getUserInfoWX(access_token,openid,callback)
                                 }
                             });
                         }
-                        callback && callback(userInfo);
+                        callback && callback(userInfo,access_token);
 
                     },
                     error: function(httpResponse) {
@@ -512,6 +513,7 @@ app.get('/how-old', function(req, res) {
 
     var ip = req.headers['x-real-ip'];
     var ua = req.get('User-Agent');
+
     console.log('from:',ip, ua);
 
     res.redirect('http://how-old.net/');
